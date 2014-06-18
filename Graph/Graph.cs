@@ -264,7 +264,21 @@ namespace GraphImplementation
       
         public Boolean IsEuler()
         {
-            throw new NotImplementedException();
+            bool flag=true;
+            if (IsConnected())
+            {
+                foreach(Vertex i in BFS())
+                {
+                    if(i.Degree % 2 !=0)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                return flag;
+            }
+            else
+                return false;
         }
         public Boolean IsHamelton()
         {
@@ -278,34 +292,40 @@ namespace GraphImplementation
 
         #region "iterators"
 
-            List<Vertex> iteratorList;
-            Dictionary<Vertex, bool> Mark;
+           
             /// <summary>
             /// Обход графа в глубину.
             /// </summary>
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> DFS()
             {
+                List<Vertex> iteratorList;
+                Dictionary<Vertex, bool> Mark;
                 iteratorList = new List<Vertex>();
                 Mark = new Dictionary<Vertex, bool>();
-                iteratorList.Clear();
-                Mark.Clear();
-                DFSrec(Vertexes[0]);
+                DFSrec(Vertexes[0],iteratorList,Mark);
                 foreach(Vertex i in iteratorList)
                 {
                     yield return i;
                 }
             }
-            private void DFSrec(Vertex v)
+            private void DFSrec(Vertex v,List<Vertex> list,Dictionary<Vertex,bool> Mark)
             {
-
+                if (!Mark.ContainsKey(v))
+                {
+                    Mark.Add(v, true);
+                    DFSrec(v, list, Mark);
+                    list.Add(v);
+                }
                 foreach(Vertex i in v.Incidented())
                 {
                     if (!Mark.ContainsKey(i))
-                    {
-                        iteratorList.Add(i);
+                    {  
                         Mark.Add(i, true);
-                        DFSrec(i);
+                        DFSrec(i,list,Mark);
+                        list.Add(i);
+                      
+                        
                     }
                 }
             }
@@ -317,9 +337,35 @@ namespace GraphImplementation
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> BFS()
             {
-                throw new NotImplementedException();
+                List<Vertex> iteratorList;
+                Dictionary<Vertex, bool> Mark;
+                iteratorList = new List<Vertex>();
+                Mark = new Dictionary<Vertex, bool>();
+                BFSrec(Vertexes[0], iteratorList, Mark);
+                foreach (Vertex i in iteratorList)
+                {
+                    yield return i;
+                }
             }
-
+            private void BFSrec(Vertex v, List<Vertex> list, Dictionary<Vertex, bool> Mark)
+            {
+                if (!Mark.ContainsKey(v))
+                {
+                    Mark.Add(v, true);
+                    BFSrec(v, list, Mark);
+                    list.Add(v);
+                }
+                foreach (Vertex i in v.Incidented())
+                {
+                    if (!Mark.ContainsKey(i))
+                    {
+                        list.Add(i);
+                        Mark.Add(i, true);
+                        BFSrec(i, list, Mark);
+                    }
+                }
+            }
+            
             /// <summary>
             /// Перечисляет все вершины инцидентные данной.
             /// </summary>

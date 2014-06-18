@@ -33,6 +33,7 @@ namespace GraphView
             foreach(Vertex v in g.Simple())
             {
                 v.Info = lines[cursor];
+                cursor++;
             }
 
             return g;

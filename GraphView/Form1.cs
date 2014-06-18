@@ -66,6 +66,15 @@ namespace GraphView
             }
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            listBox3.Items.Clear();
+            foreach (Vertex i in g.BFS())
+            {
+                listBox3.Items.Add(i.Info);
+            }
+        }
+
 
 
     }
