@@ -10,7 +10,7 @@ namespace GraphImplementation
     {
         public Vertex()
         {
-
+            
         }
         public Vertex(String Info)
         {
@@ -40,6 +40,6 @@ namespace GraphImplementation
                 yield return ver;
             }
         }
-        public bool Mark;
+        
     }
 }

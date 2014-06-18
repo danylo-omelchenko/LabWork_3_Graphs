@@ -23,7 +23,7 @@ namespace GraphView
         {
             label1.Text =
                            //"Is tree: \t" + g.IsTree().ToString() + "\n" +
-                            "Is concted: \t" + g.IsConnected().ToString() + "\n";
+                            "Is connected: \t" + g.IsConnected().ToString() + "\n";
         }
 
         private void Load_Click(object sender, EventArgs e)
@@ -55,6 +55,15 @@ namespace GraphView
         private void button5_Click(object sender, EventArgs e)
         {
             g.RemoveEdge(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox3.Text));
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            listBox3.Items.Clear();
+            foreach(Vertex  i in g.DFS())
+            {
+                listBox3.Items.Add(i.Info);
+            }
         }
 
 

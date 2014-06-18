@@ -277,16 +277,37 @@ namespace GraphImplementation
         }
 
         #region "iterators"
-            
 
+            List<Vertex> iteratorList;
+            Dictionary<Vertex, bool> Mark;
             /// <summary>
             /// Обход графа в глубину.
             /// </summary>
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> DFS()
             {
-                throw new NotImplementedException();
+                iteratorList = new List<Vertex>();
+                Mark = new Dictionary<Vertex, bool>();
+                iteratorList.Clear();
+                Mark.Clear();
+                DFSrec(Vertexes[0]);
+                foreach(Vertex i in iteratorList)
+                {
+                    yield return i;
+                }
+            }
+            private void DFSrec(Vertex v)
+            {
 
+                foreach(Vertex i in v.Incidented())
+                {
+                    if (!Mark.ContainsKey(i))
+                    {
+                        iteratorList.Add(i);
+                        Mark.Add(i, true);
+                        DFSrec(i);
+                    }
+                }
             }
 
 
