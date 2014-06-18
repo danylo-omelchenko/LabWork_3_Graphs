@@ -10,6 +10,11 @@ namespace GraphView
 {
     public static class GraphController
     {
+        /// <summary>
+        /// Создает новый граф из файла.
+        /// </summary>
+        /// <param name="FileName">Путь к файлу</param>
+        /// <returns>Возвращает граф, загруженный из файла</returns>
         public static Graph LoadFromFile(String FileName)
         {
             Graph g = new Graph();
@@ -39,7 +44,11 @@ namespace GraphView
             return g;
 
         }
-
+        /// <summary>
+        /// Сохраняет граф в файл
+        /// </summary>
+        /// <param name="Graph">Граф для сохранения</param>
+        /// <param name="FileName">Путь к файлу</param>
         public static void SaveToFile(Graph graph, String FileName)
         {
             String File = "";
@@ -87,5 +96,55 @@ namespace GraphView
             }
         }
 
+        public static List<Vertex> FindWay(Graph g,Vertex from,Vertex to)
+        {
+            int steps = 0;
+            List<Vertex> list = new List<Vertex>();
+            Dictionary<Vertex, int> Marks = new Dictionary<Vertex, int>();
+            Queue<Vertex> queue = new Queue<Vertex>();
+            queue.Enqueue(from);
+            Marks.Add(from,0);
+            while (queue.Count != 0)
+            {
+                foreach (Vertex i in queue.Peek().Incidented())
+                {
+                    if (!Marks.ContainsKey(i))
+                    {
+                        Marks.Add(i, Marks[queue.Peek()]+1);
+                        queue.Enqueue(i);
+                    }
+                    if(i==to)
+                    {
+                        steps = Marks[i];
+                        break;
+                    }
+                }
+                queue.Dequeue();
+            }
+            queue.Clear();
+            list.Add(to);
+            Vertex v=to;
+            while(v!=from)
+            {
+                foreach (Vertex i in v.Incidented())
+                {
+                    if(Marks.ContainsKey(i))
+                    {
+                        if(Marks[i]==Marks[v]-1)
+                        {
+                            v = i;
+                            list.Add(v);
+                            break;
+                        }
+                    }
+                }
+            }
+            list.Reverse();
+            return list ;
+        }
+        public static List<Vertex> FindWay(Graph g, int from, int to)
+        {
+            return FindWay(g,g.GetVertextByIndex(from),g.GetVertextByIndex(to));
+        }
     }
 }

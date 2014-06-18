@@ -46,6 +46,10 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.button9 = new System.Windows.Forms.Button();
+            this.listBox4 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // button1
@@ -207,11 +211,47 @@
             this.textBox4.Size = new System.Drawing.Size(37, 20);
             this.textBox4.TabIndex = 17;
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(642, 247);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(41, 20);
+            this.textBox5.TabIndex = 18;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(689, 247);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(41, 20);
+            this.textBox6.TabIndex = 19;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(642, 218);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(88, 23);
+            this.button9.TabIndex = 21;
+            this.button9.Text = "FindWay";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // listBox4
+            // 
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.Location = new System.Drawing.Point(642, 273);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(88, 173);
+            this.listBox4.TabIndex = 22;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 397);
+            this.ClientSize = new System.Drawing.Size(824, 458);
+            this.Controls.Add(this.listBox4);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -257,6 +297,10 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.ListBox listBox4;
     }
 }
 

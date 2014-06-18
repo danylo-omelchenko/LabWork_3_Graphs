@@ -87,6 +87,15 @@ namespace GraphView
             }
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            listBox4.Items.Clear();
+            foreach(Vertex i in GraphController.FindWay(g,Convert.ToInt32(textBox5.Text),Convert.ToInt32(textBox6.Text)))
+            {
+                listBox4.Items.Add(i.Info);
+            }
+        }
+
 
 
     }

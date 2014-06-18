@@ -10,9 +10,12 @@ namespace GraphImplementation
     {
         public delegate void EventChange(Graph sender);
         public event EventChange OnChange;
-
         private List<Vertex> Vertexes = new List<Vertex>();
 
+        public Vertex GetVertextByIndex(int index)
+        {
+            return Vertexes[index];
+        }
         /// <summary>
         /// Стандартный конструктор.
         /// </summary>
@@ -20,7 +23,6 @@ namespace GraphImplementation
         {
             
         }
-        
         /// <summary>
         /// Создает новый граф на основе матрици смежности Matrix.
         /// </summary>
@@ -44,7 +46,6 @@ namespace GraphImplementation
             }
             
         }
-
         /// <summary>
         /// Возвращает матрицу смежности графа.
         /// </summary>
@@ -63,7 +64,6 @@ namespace GraphImplementation
             }
             return Matrix;
         }
-
         /// <summary>
         /// Очищает граф, оставляя его пустым.
         /// </summary>
@@ -71,10 +71,7 @@ namespace GraphImplementation
         {
             Vertexes.Clear();
         }
-
         #region "operations with vertexes"
-
-
             /// <summary>
             /// Добавляет новую вершину в граф (С данными по умолчанию).
             /// </summary>
@@ -83,8 +80,6 @@ namespace GraphImplementation
                 Vertexes.Add(new Vertex(Vertexes.Count.ToString()));
                 if (OnChange != null) OnChange(this);
             }
-
-
             /// <summary>
             /// Добавляет новую вершину в граф.
             /// </summary>
@@ -94,8 +89,6 @@ namespace GraphImplementation
                 Vertexes.Add(new Vertex(Info));
                 if (OnChange != null) OnChange(this);
             }
-
-
             /// <summary>
             /// Добавляет конкретную вершину в граф.
             /// </summary>
@@ -105,8 +98,6 @@ namespace GraphImplementation
                 if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
                 if (OnChange != null) OnChange(this);
             }
-
-
             /// <summary>
             /// Удаляет вершину из графа.
             /// </summary>
@@ -120,8 +111,6 @@ namespace GraphImplementation
                 Vertexes.Remove(DelVertex);
                 if (OnChange != null) OnChange(this);
             }
-
-
             /// <summary>
             /// Удаляет вершину из графа по указанному индексу
             /// </summary>
@@ -136,9 +125,7 @@ namespace GraphImplementation
                 if (OnChange != null) OnChange(this);
             }
         #endregion
-
         #region "operation with edges"
-
 
             /// <summary>
             /// Добавляет ребро в граф.
@@ -154,8 +141,6 @@ namespace GraphImplementation
                     if (OnChange != null) OnChange(this);
                 }
             }
-
-
             /// <summary>
             /// Добавляет ребро в граф, на основе индексов вершин.
             /// </summary>
@@ -180,8 +165,6 @@ namespace GraphImplementation
                     if (OnChange != null) OnChange(this);
                 }
             }
-
-
             /// <summary>
             /// Удаляет ребро соединяющие вершины Vertex1 и Vertex2, если таковые имеется.
             /// </summary>
@@ -193,8 +176,6 @@ namespace GraphImplementation
                 if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
                 if (OnChange != null) OnChange(this);
             }
-
-
             /// <summary>
             /// Удаляет ребро соединяющие вершины с индексами Index1 и Index2, если таковые имеется.
             /// </summary>
@@ -220,10 +201,10 @@ namespace GraphImplementation
                 }
             }
         #endregion
-            /// <summary>
-            /// Пустота графа
-            /// </summary>
-            /// <returns>Возвращает истину, если граф пуст</returns>
+        /// <summary>
+        /// Пустота графа
+        /// </summary>
+        /// <returns>Возвращает истину, если граф пуст</returns>
         public Boolean IsEmpty()
         {
             return Vertexes.Count == 0;
