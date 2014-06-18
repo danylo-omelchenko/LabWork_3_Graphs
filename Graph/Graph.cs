@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Graph
 {
-    public class Graph
+    public class Graph: IEnumerable
     {
         private List<Vertex> Vertexes = new List<Vertex>();
 
@@ -24,6 +25,10 @@ namespace Graph
         public void GraphFromMatrix(Int32[,] Matrix)
         {
             Clear();
+            for (int i = 0; i < Matrix.GetLength(0); i++)
+            {
+                AddVertex();
+            }
             for(int i = 0;i < Matrix.GetLength(0);i++)
             {
                 for (int j = i; j < Matrix.GetLength(1);j++)
@@ -34,27 +39,6 @@ namespace Graph
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Возвращает новый граф на основе матрици смежности Matrix.
-        /// </summary>
-        /// <param name="Matrix">Матрица смежности.</param>
-        public static Graph GraphFromMatrix(Int32[,] Matrix)
-        {
-            Graph newGraph = new Graph();
-            newGraph.Clear();
-            for (int i = 0; i < Matrix.GetLength(0); i++)
-            {
-                for (int j = i; j < Matrix.GetLength(1); j++)
-                {
-                    if (Matrix[i, j] == 1)
-                    {
-                        newGraph.AddEdge(i, j);
-                    }
-                }
-            }
-            return newGraph;
         }
 
         /// <summary>
@@ -84,81 +68,117 @@ namespace Graph
             Vertexes.Clear();
         }
 
-        /// <summary>
-        /// Добавляет новую вершину в граф.
-        /// </summary>
-        /// <param name="NewVertex">Вершина для добавления.</param>
-        public void AddVertex(String Info)
-        {
-            if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
-        }
+        #region "operations with vertexes"
 
-         
 
-        /// <summary>
-        /// Добавляет конкретную вершину в граф.
-        /// </summary>
-        /// <param name="NewVertex">Вершина для добавления.</param>
-        public void AddVertex(Vertex NewVertex) 
-        {
-            if(!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
-        }
-
-        /// <summary>
-        /// Добавляет ребро в граф.
-        /// </summary>
-        /// <param name="Vertex1">Первая вершина, которая входит в добавляемое ребро.</param>
-        /// <param name="Vertex2">Вторая вершина, которая входит в добавляемое ребро.</param>
-        public void AddEdge(Vertex Vertex1, Vertex Vertex2)
-        {
-            if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
-            if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
-        }
-
-        /// <summary>
-        /// Добавляет ребро в граф, на основе индексов вершин.
-        /// </summary>
-        /// <param name="Index1">Индекс первой вершины, которая входит в добавляемое ребро.</param>
-        /// <param name="Index2">Индекс второй вершины, которая входит в добавляемое ребро</param>
-        public void AddEdge(Int32 Index1, Int32 Index2)
-        {
-            if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
-            if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
-        }
-        /// <summary>
-        /// Удаляет вершину из графа.
-        /// </summary>
-        /// <param name="DelVertex">Вершина, которую требуется удалить.</param>
-        public void RemoveVertex(Vertex DelVertex)
-        {
-            foreach(Vertex Incident in DelVertex.Incidented())
+            /// <summary>
+            /// Добавляет новую вершину в граф (С данными по умолчанию).
+            /// </summary>
+            public void AddVertex()
             {
-                Incident.Vertexes.Remove(DelVertex);
+                Vertexes.Add(new Vertex(Vertexes.Count.ToString()));
             }
-            Vertexes.Remove(DelVertex);
-        }
-        /// <summary>
-        /// Удаляет вершину из графа по указанному индексу
-        /// </summary>
-        /// <param name="DelVertex">Вершина, которую требуется удалить.</param>
-        public void RemoveVertex(Int32 DelIndex)
-        {
-            foreach (Vertex Incident in Vertexes[DelIndex].Incidented())
+
+
+            /// <summary>
+            /// Добавляет новую вершину в граф.
+            /// </summary>
+            /// <param name="Info">Данные для новой вершины.</param>
+            public void AddVertex(String Info)
             {
-                Incident.Vertexes.Remove(Vertexes[DelIndex]);
+                Vertexes.Add(new Vertex(Info));
             }
-            Vertexes.Remove(Vertexes[DelIndex]);
-        }
-        public void RemoveEdge(Vertex Vertex1, Vertex Vertex2)
-        {
-            if (Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Remove(Vertex2);
-            if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
-        }
-        public void RemoveEdge(Int32 Index1, Int32 Index2)
-        {
-            if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
-            if (Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Remove(Vertexes[Index1]);
-        }
+
+
+            /// <summary>
+            /// Добавляет конкретную вершину в граф.
+            /// </summary>
+            /// <param name="NewVertex">Вершина для добавления.</param>
+            public void AddVertex(Vertex NewVertex)
+            {
+                if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
+            }
+
+
+            /// <summary>
+            /// Удаляет вершину из графа.
+            /// </summary>
+            /// <param name="DelVertex">Вершина, которую требуется удалить.</param>
+            public void RemoveVertex(Vertex DelVertex)
+            {
+                foreach (Vertex Incident in DelVertex.Incidented())
+                {
+                    Incident.Vertexes.Remove(DelVertex);
+                }
+                Vertexes.Remove(DelVertex);
+            }
+
+
+            /// <summary>
+            /// Удаляет вершину из графа по указанному индексу
+            /// </summary>
+            /// <param name="DelVertex">Вершина, которую требуется удалить.</param>
+            public void RemoveVertex(Int32 DelIndex)
+            {
+                foreach (Vertex Incident in Vertexes[DelIndex].Incidented())
+                {
+                    Incident.Vertexes.Remove(Vertexes[DelIndex]);
+                }
+                Vertexes.Remove(Vertexes[DelIndex]);
+            }
+        #endregion
+
+        #region "operation with edges"
+
+
+            /// <summary>
+            /// Добавляет ребро в граф.
+            /// </summary>
+            /// <param name="Vertex1">Первая вершина, которая входит в добавляемое ребро.</param>
+            /// <param name="Vertex2">Вторая вершина, которая входит в добавляемое ребро.</param>
+            public void AddEdge(Vertex Vertex1, Vertex Vertex2)
+            {
+                if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
+                if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
+            }
+
+
+            /// <summary>
+            /// Добавляет ребро в граф, на основе индексов вершин.
+            /// </summary>
+            /// <param name="Index1">Индекс первой вершины, которая входит в добавляемое ребро.</param>
+            /// <param name="Index2">Индекс второй вершины, которая входит в добавляемое ребро</param>
+            public void AddEdge(Int32 Index1, Int32 Index2)
+            {
+                if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
+                if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
+            }
+
+
+            /// <summary>
+            /// Удаляет ребро соединяющие вершины Vertex1 и Vertex2, если таковые имеется.
+            /// </summary>
+            /// <param name="Vertex1">Первая вершина.</param>
+            /// <param name="Vertex2">Вторая вершина.</param>
+            public void RemoveEdge(Vertex Vertex1, Vertex Vertex2)
+            {
+                if (Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Remove(Vertex2);
+                if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
+            }
+
+
+            /// <summary>
+            /// Удаляет ребро соединяющие вершины с индексами Index1 и Index2, если таковые имеется.
+            /// </summary>
+            /// <param name="Vertex1">Индекс первой вершины.</param>
+            /// <param name="Vertex2">Индекс второй вершины</param>
+            public void RemoveEdge(Int32 Index1, Int32 Index2)
+            {
+                if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
+                if (Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Remove(Vertexes[Index1]);
+            }
+        #endregion
+
         public Boolean IsEmpty()
         {
             return Vertexes.Count == 0;
@@ -185,24 +205,59 @@ namespace Graph
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Vertex> DFS()
-        {
-            throw new NotImplementedException();
-        }
+        #region "iterators"
+            
 
-        public IEnumerable<Vertex> BFS()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Vertex> Incidented(Vertex CurrentVertex)
-        {
-            foreach(Vertex ver in CurrentVertex.Vertexes)
+            /// <summary>
+            /// Обход графа в глубину.
+            /// </summary>
+            /// <returns>Возвращает вершины в порядке обхода.</returns>
+            public IEnumerable<Vertex> DFS()
             {
-                yield return ver;
+                throw new NotImplementedException();
             }
-        }
 
 
+            /// <summary>
+            /// Обход графа в ширину.
+            /// </summary>
+            /// <returns>Возвращает вершины в порядке обхода.</returns>
+            public IEnumerable<Vertex> BFS()
+            {
+                throw new NotImplementedException();
+            }
+
+            /// <summary>
+            /// Перечисляет все вершины инцидентные данной.
+            /// </summary>
+            /// <param name="CurrentVertex">Вершина.</param>
+            /// <returns>Возвращает все инцидентные вершины в произвольном порядке.</returns>
+            public IEnumerable<Vertex> Incidented(Vertex CurrentVertex)
+            {
+                foreach (Vertex ver in CurrentVertex.Vertexes)
+                {
+                    yield return ver;
+                }
+            }
+
+
+            /// <summary>
+            /// Перечисляет все вершины графа в произвольном порядке.
+            /// </summary>
+            /// <returns>Возвращает все вершины в произвольном порядке.</returns>
+            public IEnumerable<Vertex> GetEnumerator()
+            {
+                foreach (Vertex ver in Vertexes)
+                {
+                    yield return ver;
+                }
+            }
+
+        #endregion
+
+            public IEnumerator IEnumerable.GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
     }
 }
