@@ -293,6 +293,28 @@ namespace GraphImplementation
             return Vertexes.Count == 0;
         }
         /// <summary>
+        /// Полнота графа
+        /// </summary>
+        /// <returns>Возвращает истину, если граф полный</returns>
+        public Boolean IsFull()
+        {
+            int[,] matrix = this.GetMatrix();
+            int n = matrix.GetLength(0);
+            bool flag=true;
+            for(int i=0;i<n;i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if(i!=j && matrix[i,j]==0)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            return flag;
+        }
+        /// <summary>
         /// Проверка на древестность
         /// </summary>
         /// <returns>Возвращает истину, если граф дерево.</returns>
@@ -402,6 +424,35 @@ namespace GraphImplementation
                 {
                     flag = false;
                     break;
+                }
+            }
+            return flag;
+        }
+        /// <summary>
+        /// Проверка на двудольность
+        /// </summary>
+        /// <returns>Возвращает является ли граф двудольным</returns>
+        public Boolean IsBigraph()
+        {
+            bool flag = true;
+            Dictionary<Vertex, int> Mark = new Dictionary<Vertex, int>();
+            foreach (Vertex v in BFS())
+            {
+                if (!Mark.ContainsKey(v))
+                {
+                    Mark.Add(v, 1);
+                }
+                foreach (Vertex i in v.Vertexes)
+                {
+                    if(!Mark.ContainsKey(i))
+                    {
+                        Mark.Add(i, -Mark[v]);
+                    }
+                    else
+                    {
+                        if (Mark[i] != -Mark[v])
+                        flag = false;
+                    }
                 }
             }
             return flag;
