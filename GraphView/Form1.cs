@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Graph;
 
 namespace GraphView
 {
@@ -14,6 +15,10 @@ namespace GraphView
         public Form1()
         {
             InitializeComponent();
+            
         }
+
+        Graph.Graph g;
+
     }
 }
