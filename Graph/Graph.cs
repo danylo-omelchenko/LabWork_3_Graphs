@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Graph
 {
-    public class Graph: IEnumerable
+    public class Graph
     {
         public delegate void EventChange(Graph sender);
         public event EventChange OnChange;
@@ -275,7 +275,7 @@ namespace Graph
             /// Перечисляет все вершины графа в произвольном порядке.
             /// </summary>
             /// <returns>Возвращает все вершины в произвольном порядке.</returns>
-            public IEnumerable<Vertex> GetEnumerator()
+            public IEnumerable<Vertex> Simple()
             {
                 foreach (Vertex ver in Vertexes)
                 {
@@ -284,10 +284,5 @@ namespace Graph
             }
 
         #endregion
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
     }
 }
