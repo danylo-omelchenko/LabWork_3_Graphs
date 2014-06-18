@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using GraphImplementation;
 
 namespace GraphView
 {
@@ -36,6 +37,14 @@ namespace GraphView
             Refresh();
         }
 
+        public VertexView FindViewByVertex(Vertex vertex)
+        {
+            foreach (VertexView v in Views.OfType<VertexView>())
+            {
+                if (v.Vertex == vertex) return v;
+            }
+            return null;
+        }
         public override void Refresh()
         {
             Graphics g = Graphics.FromImage(canvas);

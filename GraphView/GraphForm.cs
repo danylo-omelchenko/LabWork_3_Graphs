@@ -17,24 +17,55 @@ namespace GraphView
         public GraphForm()
         {
             InitializeComponent();
-            //graph.OnChange() += ;
+
+            graph.OnEdgeAdded += On_EdgeAdded;
+            graph.OnEdgeRemoved += On_EdgeRemoved;
+            graph.OnVertexRemoved += On_VertexRemoved;
+            graph.OnVertexAdded += On_VertexAdded;
+            graph.OnChange += On_Change;
+
+            canvasView1.MouseMove += On_MouseMove;
         }
 
+        public void On_Change(Graph sender){
 
-
-        private void button1_Click(object sender, EventArgs e)
+        }
+        public void On_VertexRemoved(Graph sender, Vertex vertex)
+        {
+            VertexView v = canvasView1.FindViewByVertex(vertex);
+            v.MouseDown -= On_MouseDown;
+            v.MouseUp -= On_MouseUp;
+            v.MouseLeave -= On_MouseLeave;
+            v.MouseEnter -= On_MouseEnter;
+            canvasView1.Views.Remove(v);
+            v = null;
+        }
+        public void On_VertexAdded(Graph sender, Vertex vertex)
         {
             Random r = new Random(DateTime.Now.Millisecond);
             VertexView v = new VertexView();
-            v.Vertex = new Vertex(r.Next(1,1000).ToString());
+            v.Vertex = vertex;
             v.Location = new Point(r.Next(0, canvasView1.Width), r.Next(0, canvasView1.Height));
             v.MouseDown += On_MouseDown;
             v.MouseUp += On_MouseUp;
             v.MouseLeave += On_MouseLeave;
             v.MouseEnter += On_MouseEnter;
-            v.MouseMove += On_MouseMove;
             canvasView1.Views.Add(v);
             canvasView1.Refresh();
+        }
+        public void On_EdgeRemoved(Graph sender, Edge edge)
+        {
+
+        }
+        public void On_EdgeAdded(Graph sender, Edge edge)
+        {
+
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            graph.AddVertex();
         }
 
         VertexView moving = null;
@@ -56,7 +87,7 @@ namespace GraphView
            // (sender as VertexView).BackColor = Color.GreenYellow;
         }
 
-        private void On_MouseMove(Views sender)
+        private void On_MouseMove(Object sender, MouseEventArgs e)
         {
             if (moving != null)
             {
