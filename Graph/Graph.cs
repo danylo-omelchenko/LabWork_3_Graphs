@@ -221,15 +221,17 @@ namespace GraphImplementation
             }
         #endregion
             /// <summary>
-            /// Возвращает истину, если граф пуст.
+            /// Пустота графа
             /// </summary>
+            /// <returns>Возвращает истину, если граф пуст</returns>
         public Boolean IsEmpty()
         {
             return Vertexes.Count == 0;
         }
         /// <summary>
-        /// Возвращает истину, если граф дерево.
+        /// Проверка на древестность
         /// </summary>
+        /// <returns>Возвращает истину, если граф дерево.</returns>
         public Boolean IsTree()
         {
             if (this.IsConnected())
@@ -271,8 +273,9 @@ namespace GraphImplementation
             }
         }
         /// <summary>
-        /// Возвращает истину, если граф связнаный.
+        /// Проверяет граф на связность
         /// </summary>
+        /// <returns>Возвращает истину, если граф связанный.</returns>
         public Boolean IsConnected()
         {
             int[,] matrix = this.GetMatrix();
@@ -301,8 +304,9 @@ namespace GraphImplementation
             return flag;
         }
         /// <summary>
-        /// Возвращает истину, если граф содержит Эйлеров цикл.
+        /// Проверка на содержание Эйлерового цикла
         /// </summary>
+        /// <returns>Возвращает истину, если граф содержит Эйлеров цикл.</returns>
         public Boolean IsEuler()
         {
             bool flag=true;
@@ -324,6 +328,7 @@ namespace GraphImplementation
         /// <summary>
         /// Возвращает исключение
         /// </summary>
+        /// <returns>Таки исключение</returns>
         public Boolean IsHamelton()
         {
             throw new NotImplementedException();
@@ -331,6 +336,7 @@ namespace GraphImplementation
         /// <summary>
         /// Возвращает исключение
         /// </summary>
+        /// <returns>Таки исключение</returns>
         public Boolean IsWood()
         {
             throw new NotImplementedException();
@@ -338,7 +344,7 @@ namespace GraphImplementation
 
         #region "iterators"
 
-             /// <summary>
+            /// <summary>
             /// Обход графа по ребрам.
             /// </summary>
             /// <returns>Возвращает все ребра графа.</returns>
