@@ -198,7 +198,12 @@ namespace GraphImplementation
         }
         public Boolean IsTree()
         {
-            throw new NotImplementedException();
+            if (this.IsСonnected())
+                return true;
+            else
+            {
+                return false;
+            }
         }
         public Boolean IsСonnected()
         {
@@ -221,6 +226,7 @@ namespace GraphImplementation
             }
             return flag;
         }
+      
         public Boolean IsEuler()
         {
             throw new NotImplementedException();
