@@ -30,7 +30,14 @@ namespace GraphImplementation
         /// <returns>Возвращает вершину, по её индексу</returns>
         public Vertex GetVertextByIndex(int index)
         {
-            return Vertexes[index];
+            try
+            {
+                return Vertexes[index];
+            }
+            catch
+            {
+                throw new Exception("Неправильный индекс вершины");
+            }
         }
         /// <summary>
         /// Стандартный конструктор.

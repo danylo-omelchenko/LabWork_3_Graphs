@@ -47,7 +47,7 @@ namespace GraphView
         /// <summary>
         /// Сохраняет граф в файл
         /// </summary>
-        /// <param name="Graph">Граф для сохранения</param>
+        /// <param name="graph">Граф для сохранения</param>
         /// <param name="FileName">Путь к файлу</param>
         public static void SaveToFile(Graph graph, String FileName)
         {
@@ -96,7 +96,13 @@ namespace GraphView
             }
         }
 
-        public static List<Vertex> FindWay(Graph g,Vertex from,Vertex to)
+        /// <summary>
+        /// Ищет путь в графе между двумя вершинами
+        /// </summary>
+        /// <param name="from">Точка старта</param>
+        /// <param name="to">Точка финиша</param>
+        /// <returns>Возвращает список вершин на пути между двумя вершинами</returns>
+        public static List<Vertex> FindWay(Vertex from, Vertex to)
         {
             int steps = 0;
             List<Vertex> list = new List<Vertex>();
@@ -104,6 +110,7 @@ namespace GraphView
             Queue<Vertex> queue = new Queue<Vertex>();
             queue.Enqueue(from);
             Marks.Add(from,0);
+            bool flag = false;
             while (queue.Count != 0)
             {
                 foreach (Vertex i in queue.Peek().Incidented())
@@ -116,11 +123,13 @@ namespace GraphView
                     if(i==to)
                     {
                         steps = Marks[i];
+                        flag = true;
                         break;
                     }
                 }
                 queue.Dequeue();
             }
+            if (!flag) throw new Exception("Путь не найден");
             queue.Clear();
             list.Add(to);
             Vertex v=to;
@@ -142,9 +151,23 @@ namespace GraphView
             list.Reverse();
             return list ;
         }
-        public static List<Vertex> FindWay(Graph g, int from, int to)
+        /// <summary>
+        /// Ищет путь в графе между двумя вершинами
+        /// </summary>
+        /// <param name="graph">Граф, для поиска</param>
+        /// <param name="from">Индекс точки старта</param>
+        /// <param name="to">Индекс точки финиша</param>
+        /// <returns>Возвращает список вершин на пути между двумя вершинами заданными индексами</returns>
+        public static List<Vertex> FindWay(Graph graph, int from, int to)
         {
-            return FindWay(g,g.GetVertextByIndex(from),g.GetVertextByIndex(to));
+            try
+            {
+                return FindWay(graph.GetVertextByIndex(from), graph.GetVertextByIndex(to));
+            }
+            catch
+            {
+                throw new Exception("Неправильный индекс вершины");
+            }
         }
     }
 }
