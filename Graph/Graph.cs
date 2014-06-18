@@ -198,9 +198,14 @@ namespace GraphImplementation
         }
         public Boolean IsTree()
         {
-            throw new NotImplementedException();
+            if (this.IsConnected())
+                return true;
+            else
+            {
+                return false;
+            }
         }
-        public Boolean IsСonnected()
+        public Boolean IsConnected()
         {
             int[,] matrix = this.GetMatrix();
             bool flag = true;
@@ -221,6 +226,7 @@ namespace GraphImplementation
             }
             return flag;
         }
+      
         public Boolean IsEuler()
         {
             throw new NotImplementedException();
