@@ -22,7 +22,7 @@ namespace GraphView
         public void Update(Graph sender)
         {
             label1.Text =
-                            "Is tree: \t" + g.IsTree().ToString() + "\n" +
+                           // "Is tree: \t" + g.IsTree().ToString() + "\n" +
                             "Is concted: \t" + g.IsConnected().ToString() + "\n";
         }
 
