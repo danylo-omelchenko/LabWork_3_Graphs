@@ -50,6 +50,7 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button9 = new System.Windows.Forms.Button();
             this.listBox4 = new System.Windows.Forms.ListBox();
+            this.button10 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -243,11 +244,22 @@
             this.listBox4.Size = new System.Drawing.Size(88, 173);
             this.listBox4.TabIndex = 22;
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(12, 413);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(87, 33);
+            this.button10.TabIndex = 23;
+            this.button10.Text = "Graph view";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 458);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.listBox4);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.textBox6);
@@ -301,6 +313,7 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.Button button10;
     }
 }
 

@@ -96,6 +96,12 @@ namespace GraphView
             }
         }
 
+        private void button10_Click(object sender, EventArgs e)
+        {
+            GraphForm grf = new GraphForm();
+            grf.Show();
+        }
+
 
 
     }
