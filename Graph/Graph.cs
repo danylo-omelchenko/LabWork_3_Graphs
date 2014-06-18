@@ -8,6 +8,9 @@ namespace Graph
 {
     public class Graph: IEnumerable
     {
+        public delegate void EventChange(Graph sender);
+        public event EventChange OnChange;
+
         private List<Vertex> Vertexes = new List<Vertex>();
 
         /// <summary>
@@ -15,7 +18,7 @@ namespace Graph
         /// </summary>
         public Graph()
         {
-  
+            
         }
 
         /// <summary>
@@ -39,13 +42,14 @@ namespace Graph
                     }
                 }
             }
+            
         }
 
         /// <summary>
         /// Возвращает матрицу смежности графа.
         /// </summary>
         /// <returns>Матрица смежности Int32[,]</returns>
-        public Int32[,] GetMutrix()
+        public Int32[,] GetMatrix()
         {
             Int32[,] Matrix = new Int32[Vertexes.Count,Vertexes.Count];
             Matrix.Initialize();
@@ -77,6 +81,7 @@ namespace Graph
             public void AddVertex()
             {
                 Vertexes.Add(new Vertex(Vertexes.Count.ToString()));
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -87,6 +92,7 @@ namespace Graph
             public void AddVertex(String Info)
             {
                 Vertexes.Add(new Vertex(Info));
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -97,6 +103,7 @@ namespace Graph
             public void AddVertex(Vertex NewVertex)
             {
                 if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -111,6 +118,7 @@ namespace Graph
                     Incident.Vertexes.Remove(DelVertex);
                 }
                 Vertexes.Remove(DelVertex);
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -125,6 +133,7 @@ namespace Graph
                     Incident.Vertexes.Remove(Vertexes[DelIndex]);
                 }
                 Vertexes.Remove(Vertexes[DelIndex]);
+                if (OnChange != null) OnChange(this);
             }
         #endregion
 
@@ -140,6 +149,7 @@ namespace Graph
             {
                 if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
                 if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -152,6 +162,7 @@ namespace Graph
             {
                 if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
                 if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -164,6 +175,7 @@ namespace Graph
             {
                 if (Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Remove(Vertex2);
                 if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
+                if (OnChange != null) OnChange(this);
             }
 
 
@@ -176,6 +188,7 @@ namespace Graph
             {
                 if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
                 if (Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Remove(Vertexes[Index1]);
+                if (OnChange != null) OnChange(this);
             }
         #endregion
 
@@ -189,7 +202,24 @@ namespace Graph
         }
         public Boolean IsСonnected()
         {
-            throw new NotImplementedException();
+            int[,] matrix = this.GetMatrix();
+            bool flag = true;
+            bool inColumn;
+            for(int i=0;i<matrix.GetLength(0); i++)
+            {
+                inColumn=false;
+                for (int j = 0; j < matrix.GetLength(i); j++)
+                {
+                    if(matrix[i,j]!=0)
+                    {
+                        inColumn = true;
+                        break;
+                    }
+                }
+                if (!inColumn) flag = false;
+                break;
+            }
+            return flag;
         }
         public Boolean IsEuler()
         {
@@ -255,7 +285,7 @@ namespace Graph
 
         #endregion
 
-            public IEnumerator IEnumerable.GetEnumerator()
+            IEnumerator IEnumerable.GetEnumerator()
             {
                 throw new NotImplementedException();
             }
