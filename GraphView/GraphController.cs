@@ -8,15 +8,18 @@ namespace GraphView
 {
     public static class GraphController
     {
-        public static Graph LoadFromFile()
+        public static Graph LoadFromFile(String FileName)
         {
             Graph g = new Graph();
 
+
+            Int32[,] Matr = new Int32[1, 1];
             //throw new NotImplementedException();
             return g;
+
         }
 
-        public static void SaveToFile(Graph graph)
+        public static void SaveToFile(Graph graph, String FileName)
         {
             String File = "";
 
