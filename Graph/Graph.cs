@@ -245,7 +245,7 @@ namespace GraphImplementation
             for (int i=0;i<n;i++)
             {
                 inColumn = false;
-                for (int j = 0; j < matrix.GetLength(i); j++)
+                for (int j = 0; j < matrix.GetLength(0); j++)
                 {
                     if (matrix[i, j] != 0)
                     {
@@ -285,9 +285,25 @@ namespace GraphImplementation
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> DFS()
             {
-                throw new NotImplementedException();
-            }
+                bool  mark= new bool[]
+                Stack<Vertex> s;
+                s.Push(Vertexes[0]);
+                while (! (s.Count==0))
+                {
+                    Vertex v = s.Peek();
+                    s.Pop();
+                    for (int i = 0; i < edges[v].size(); ++i)
+                    {
+                        if (mark[edges[v][i]] == false)
+                        {
+                            s.push(edges[v][i]);
+                            mark[edges[v][i]] = true;
+                        }
+                    }
+                }
 
+            }
+           
 
             /// <summary>
             /// Обход графа в ширину.

@@ -40,5 +40,6 @@ namespace GraphImplementation
                 yield return ver;
             }
         }
+        public bool Mark;
     }
 }
