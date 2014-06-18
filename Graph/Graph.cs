@@ -227,7 +227,7 @@ namespace GraphImplementation
                 count = 0;
                 for (int j = 0; j < n;j++ )
                 {
-                    if (flag[i]) count++;
+                    if (flag[j]) count++;
                 }
                 return (count==1);
             }
@@ -286,6 +286,7 @@ namespace GraphImplementation
             public IEnumerable<Vertex> DFS()
             {
                 throw new NotImplementedException();
+
             }
 
 
