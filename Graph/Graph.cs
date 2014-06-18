@@ -147,9 +147,12 @@ namespace GraphImplementation
             /// <param name="Vertex2">Вторая вершина, которая входит в добавляемое ребро.</param>
             public void AddEdge(Vertex Vertex1, Vertex Vertex2)
             {
-                if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
-                if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
-                if (OnChange != null) OnChange(this);
+                if (Vertex1 != Vertex2)
+                {
+                    if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
+                    if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
+                    if (OnChange != null) OnChange(this);
+                }
             }
 
 
@@ -160,9 +163,22 @@ namespace GraphImplementation
             /// <param name="Index2">Индекс второй вершины, которая входит в добавляемое ребро</param>
             public void AddEdge(Int32 Index1, Int32 Index2)
             {
-                if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
-                if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
-                if (OnChange != null) OnChange(this);
+                Vertex v;
+                if (Index1 != Index2)
+                {
+                    try
+                    {
+                        v = Vertexes[Index1];
+                        v = Vertexes[Index2];
+                    }
+                    catch
+                    {
+                        throw new Exception("Индекс кривой!");
+                    }
+                    if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
+                    if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
+                    if (OnChange != null) OnChange(this);
+                }
             }
 
 
@@ -186,9 +202,22 @@ namespace GraphImplementation
             /// <param name="Index2">Индекс второй вершины</param>
             public void RemoveEdge(Int32 Index1, Int32 Index2)
             {
-                if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
-                if (Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Remove(Vertexes[Index1]);
-                if (OnChange != null) OnChange(this);
+                Vertex v;
+                if (Index1 != Index2)
+                {
+                    try
+                    {
+                        v = Vertexes[Index1];
+                        v = Vertexes[Index2];
+                    }
+                    catch
+                    {
+                        throw new Exception("Индекс кривой!");
+                    }
+                    if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
+                    if (Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Remove(Vertexes[Index1]);
+                    if (OnChange != null) OnChange(this);
+                }
             }
         #endregion
 
