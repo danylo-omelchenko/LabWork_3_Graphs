@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Graph;
+using GraphImplementation;
 
 namespace GraphView
 {
     public static class GraphController
     {
-        public static Graph.Graph LoadFromFile()
+        public static Graph LoadFromFile()
         {
-            throw new NotImplementedException();
+            Graph g = new Graph();
+
+            //throw new NotImplementedException();
+            return g;
         }
 
-        public static void SaveToFile(Graph.Graph graph)
+        public static void SaveToFile(Graph graph)
         {
             String File = "";
 

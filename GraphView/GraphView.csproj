@@ -76,9 +76,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Graph\Graph.csproj">
+    <ProjectReference Include="..\Graph\GraphImplementation.csproj">
       <Project>{c6c41bd7-84a6-4146-af25-c346947c8e92}</Project>
-      <Name>Graph</Name>
+      <Name>GraphImplementation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,7 +7,7 @@
     <ProjectGuid>{C6C41BD7-84A6-4146-AF25-C346947C8E92}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Graph</RootNamespace>
+    <RootNamespace>GraphImplementation</RootNamespace>
     <AssemblyName>Graph</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
