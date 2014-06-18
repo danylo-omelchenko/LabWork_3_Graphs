@@ -28,7 +28,7 @@ namespace GraphView
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(backColor);
 
-            foreach (Views v in Views)
+            foreach (Views v in Views.Reverse <Views>())
             {
                 v.Draw(g);
             }

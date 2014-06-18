@@ -19,9 +19,10 @@ namespace GraphView
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Random r = new Random(DateTime.Now.Millisecond);
             VertexView v = new VertexView();
-            v.Vertex = new Vertex("10");
-            v.Location = new Point(100, 100);
+            v.Vertex = new Vertex(r.Next(1,1000).ToString());
+            v.Location = new Point(r.Next(0, canvasView1.Width), r.Next(0, canvasView1.Height));
             v.MouseDown += On_MouseDown;
             v.MouseUp += On_MouseUp;
             v.MouseLeave += On_MouseLeave;
