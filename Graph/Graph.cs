@@ -314,17 +314,16 @@ namespace GraphImplementation
                 if (!Mark.ContainsKey(v))
                 {
                     Mark.Add(v, true);
-                    DFSrec(v, list, Mark);
                     list.Add(v);
+                    DFSrec(v, list, Mark);
                 }
                 foreach(Vertex i in v.Incidented())
                 {
                     if (!Mark.ContainsKey(i))
                     {  
                         Mark.Add(i, true);
-                        DFSrec(i,list,Mark);
                         list.Add(i);
-                      
+                        DFSrec(i,list,Mark);
                         
                     }
                 }
@@ -349,19 +348,34 @@ namespace GraphImplementation
             }
             private void BFSrec(Vertex v, List<Vertex> list, Dictionary<Vertex, bool> Mark)
             {
-                if (!Mark.ContainsKey(v))
-                {
-                    Mark.Add(v, true);
-                    BFSrec(v, list, Mark);
-                    list.Add(v);
-                }
+                
+                Queue<Vertex> queue= new Queue<Vertex>();
+              
+                queue.Enqueue(v);
+                list.Add(v);
+                Mark.Add(v, true);
                 foreach (Vertex i in v.Incidented())
                 {
                     if (!Mark.ContainsKey(i))
                     {
+                        queue.Enqueue(i);
                         list.Add(i);
                         Mark.Add(i, true);
-                        BFSrec(i, list, Mark);
+                    }
+                    while (queue.Count != 0)
+                    {
+                      
+                        foreach (Vertex item in queue.Peek().Incidented())
+                        {
+                            if (!Mark.ContainsKey(item))
+                            {
+                                list.Add(item);
+                                Mark.Add(item,true);
+                                queue.Enqueue(item);
+                            }
+                        }
+                        queue.Dequeue();
+                        
                     }
                 }
             }
