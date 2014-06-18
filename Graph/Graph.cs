@@ -10,6 +10,17 @@ namespace GraphImplementation
     {
         public delegate void EventChange(Graph sender);
         public event EventChange OnChange;
+
+        public delegate void EventVertexRemoved(Graph sender,Vertex vertex);
+        public event EventVertexRemoved OnVertexRemoved;
+        public delegate void EventVertexAdded(Graph sender, Vertex vertex);
+        public event EventVertexAdded OnVertexAdded;
+
+        public delegate void EventEdgeRemoved(Graph sender, Edge edge);
+        public event EventEdgeRemoved OnEdgeRemoved;
+        public delegate void EventEdgeAdded(Graph sender, Edge edge);
+        public event EventEdgeAdded OnEdgeAdded;
+
         private List<Vertex> Vertexes = new List<Vertex>();
 
         /// <summary>
@@ -84,7 +95,9 @@ namespace GraphImplementation
             {
                 try
                 {
-                    Vertexes.Add(new Vertex(Vertexes.Count.ToString()));
+                    Vertex v=new Vertex(Vertexes.Count.ToString());
+                    Vertexes.Add(v);
+                    if (OnVertexAdded != null) OnVertexAdded(this, v);
                     if (OnChange != null) OnChange(this);
                 }
                 catch (Exception e)
@@ -100,7 +113,9 @@ namespace GraphImplementation
             {
                 try
                 {
-                    Vertexes.Add(new Vertex(Info));
+                    Vertex v = new Vertex(Info);
+                    Vertexes.Add(v);
+                    if (OnVertexAdded != null) OnVertexAdded(this, v);
                     if (OnChange != null) OnChange(this);
                 }
                 catch (Exception e)
@@ -117,6 +132,7 @@ namespace GraphImplementation
                 try
                 {
                     if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
+                    if (OnVertexAdded != null) OnVertexAdded(this, NewVertex);
                     if (OnChange != null) OnChange(this);
                 }
                 catch(Exception e)
@@ -136,6 +152,7 @@ namespace GraphImplementation
                     {
                         Incident.Vertexes.Remove(DelVertex);
                     }
+                    if (OnVertexRemoved != null) OnVertexRemoved(this, DelVertex);
                     Vertexes.Remove(DelVertex);
                     if (OnChange != null) OnChange(this);
                 }
@@ -156,6 +173,7 @@ namespace GraphImplementation
                     {
                         Incident.Vertexes.Remove(Vertexes[DelIndex]);
                     }
+                    if (OnVertexRemoved != null) OnVertexRemoved(this, Vertexes[DelIndex]);
                     Vertexes.Remove(Vertexes[DelIndex]);
                     if (OnChange != null) OnChange(this);
                 }
@@ -180,7 +198,8 @@ namespace GraphImplementation
                     {
                         if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
                         if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
-                        if (OnChange != null) OnChange(this);
+                        if (OnEdgeAdded != null) OnEdgeAdded(this, new Edge(Vertex1, Vertex2));
+                        if (OnChange != null) OnChange(this); 
                     }
                 }
                 catch (Exception e)
@@ -209,6 +228,7 @@ namespace GraphImplementation
                     }
                     if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
                     if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
+                    if (OnEdgeAdded != null) OnEdgeAdded(this, new Edge(Vertexes[Index1], Vertexes[Index2]));
                     if (OnChange != null) OnChange(this);
                 }
             }
@@ -221,6 +241,7 @@ namespace GraphImplementation
             {
                 try
                 {
+                    if (OnEdgeRemoved != null) OnEdgeRemoved(this,new Edge(Vertex1,Vertex2));
                     if (Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Remove(Vertex2);
                     if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
                     if (OnChange != null) OnChange(this);
@@ -249,6 +270,7 @@ namespace GraphImplementation
                     {
                         throw new Exception("Индекс кривой!");
                     }
+                    if (OnEdgeRemoved != null) OnEdgeRemoved(this, new Edge(Vertexes[Index1], Vertexes[Index2]));
                     if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
                     if (Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Remove(Vertexes[Index1]);
                     if (OnChange != null) OnChange(this);
