@@ -220,11 +220,16 @@ namespace GraphImplementation
                 }
             }
         #endregion
-
+            /// <summary>
+            /// Возвращает истину, если граф пуст.
+            /// </summary>
         public Boolean IsEmpty()
         {
             return Vertexes.Count == 0;
         }
+        /// <summary>
+        /// Возвращает истину, если граф дерево.
+        /// </summary>
         public Boolean IsTree()
         {
             if (this.IsConnected())
@@ -265,6 +270,9 @@ namespace GraphImplementation
                 return false;
             }
         }
+        /// <summary>
+        /// Возвращает истину, если граф связнаный.
+        /// </summary>
         public Boolean IsConnected()
         {
             int[,] matrix = this.GetMatrix();
@@ -292,7 +300,9 @@ namespace GraphImplementation
             
             return flag;
         }
-      
+        /// <summary>
+        /// Возвращает истину, если граф содержит Эйлеров цикл.
+        /// </summary>
         public Boolean IsEuler()
         {
             bool flag=true;
@@ -311,11 +321,16 @@ namespace GraphImplementation
             else
                 return false;
         }
+        /// <summary>
+        /// Возвращает исключение
+        /// </summary>
         public Boolean IsHamelton()
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Возвращает исключение
+        /// </summary>
         public Boolean IsWood()
         {
             throw new NotImplementedException();
@@ -348,18 +363,15 @@ namespace GraphImplementation
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> DFS()
             {
-                List<Vertex> iteratorList;
-                Dictionary<Vertex, bool> Mark;
-                iteratorList = new List<Vertex>();
-                Mark = new Dictionary<Vertex, bool>();
+                List<Vertex> iteratorList = new List<Vertex>();
+
                 if (Vertexes.Count != 0)
                 {
-
                     foreach (Vertex i in this.Vertexes)
                     {
-                        if (!Mark.ContainsKey(i))
+                        if (!iteratorList.Contains(i))
                         {
-                            DFSrec(i, iteratorList, Mark);
+                            DFSrec(i, iteratorList);
                         }
                     }
                     foreach (Vertex i in iteratorList)
@@ -368,21 +380,19 @@ namespace GraphImplementation
                     }
                 }
             }
-            private void DFSrec(Vertex v,List<Vertex> list,Dictionary<Vertex,bool> Mark)
+            private void DFSrec(Vertex v,List<Vertex> list)
             {
-                if (!Mark.ContainsKey(v))
+                if (!list.Contains(v))
                 {
-                    Mark.Add(v, true);
                     list.Add(v);
-                    DFSrec(v, list, Mark);
+                    DFSrec(v, list);
                 }
                 foreach(Vertex i in v.Incidented())
                 {
-                    if (!Mark.ContainsKey(i))
+                    if (!list.Contains(i))
                     {  
-                        Mark.Add(i, true);
                         list.Add(i);
-                        DFSrec(i,list,Mark);
+                        DFSrec(i,list);
                         
                     }
                 }
@@ -395,44 +405,40 @@ namespace GraphImplementation
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> BFS()
             {
-                List<Vertex> iteratorList;
-                Dictionary<Vertex, bool> Mark;
-                iteratorList = new List<Vertex>();
-                Mark = new Dictionary<Vertex, bool>();
+                List<Vertex> iteratorList = new List<Vertex>();
+   
                 if (Vertexes.Count != 0)
                 {
-                    BFSrec(Vertexes[0], iteratorList, Mark);
+                    BFSrec(Vertexes[0], iteratorList);
                     foreach (Vertex i in iteratorList)
                     {
                         yield return i;
                     }
                 }
             }
-            private void BFSrec(Vertex v, List<Vertex> list, Dictionary<Vertex, bool> Mark)
+            private void BFSrec(Vertex v, List<Vertex> list)
             {
                 
                 Queue<Vertex> queue= new Queue<Vertex>();
               
                 queue.Enqueue(v);
                 list.Add(v);
-                Mark.Add(v, true);
+ 
                 foreach (Vertex i in this.Vertexes)
                 {
-                    if (!Mark.ContainsKey(i))
+                    if (!list.Contains(i))
                     {
                         queue.Enqueue(i);
                         list.Add(i);
-                        Mark.Add(i, true);
                     }
                     while (queue.Count != 0)
                     {
                       
                         foreach (Vertex item in queue.Peek().Incidented())
                         {
-                            if (!Mark.ContainsKey(item))
+                            if (!list.Contains(item))
                             {
                                 list.Add(item);
-                                Mark.Add(item,true);
                                 queue.Enqueue(item);
                             }
                         }

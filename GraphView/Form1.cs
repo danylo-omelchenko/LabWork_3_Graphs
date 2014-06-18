@@ -16,7 +16,7 @@ namespace GraphView
         public Form1()
         {
             InitializeComponent();
-            g.OnChange += new Graph.EventChange(Update);
+            g.OnChange += Update;
         }
 
         public void Update(Graph sender)
@@ -40,6 +40,7 @@ namespace GraphView
         private void Load_Click(object sender, EventArgs e)
         {
             GraphController.Open(ref g);
+            g.OnChange += Update;
             Update(g);
         }
 
