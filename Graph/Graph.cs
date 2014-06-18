@@ -285,25 +285,9 @@ namespace GraphImplementation
             /// <returns>Возвращает вершины в порядке обхода.</returns>
             public IEnumerable<Vertex> DFS()
             {
-                bool  mark= new bool[]
-                Stack<Vertex> s;
-                s.Push(Vertexes[0]);
-                while (! (s.Count==0))
-                {
-                    Vertex v = s.Peek();
-                    s.Pop();
-                    for (int i = 0; i < edges[v].size(); ++i)
-                    {
-                        if (mark[edges[v][i]] == false)
-                        {
-                            s.push(edges[v][i]);
-                            mark[edges[v][i]] = true;
-                        }
-                    }
-                }
-
+                throw new NotImplementedException();
             }
-           
+
 
             /// <summary>
             /// Обход графа в ширину.
