@@ -28,7 +28,10 @@ namespace GraphView
 
             for(int i = 0; i < Matr.GetLength(0);i++)
             {
-
+                for (int j = 0; j < Matr.GetLength(1); j++)
+                {
+                    File += Matr[i,j].ToString() + (char)13;
+                }
             }
         }
     }
