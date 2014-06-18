@@ -22,7 +22,7 @@ namespace GraphView
         public void Update(Graph sender)
         {
             label1.Text =
-                           // "Is tree: \t" + g.IsTree().ToString() + "\n" +
+                           //"Is tree: \t" + g.IsTree().ToString() + "\n" +
                             "Is concted: \t" + g.IsConnected().ToString() + "\n";
         }
 
@@ -35,6 +35,26 @@ namespace GraphView
         private void Save_Click(object sender, EventArgs e)
         {
             GraphController.Save(ref g);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            g.AddVertex();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            g.RemoveVertex(Convert.ToInt32(textBox1.Text));
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            g.AddEdge(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox3.Text));
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            g.RemoveEdge(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox3.Text));
         }
 
 
