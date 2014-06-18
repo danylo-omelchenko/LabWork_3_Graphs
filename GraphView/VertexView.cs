@@ -60,7 +60,7 @@ namespace GraphView
         {
             g.FillEllipse(new SolidBrush(backColor), location.X - radius, location.Y - radius, radius * 2, radius*2);
             g.DrawEllipse(new Pen(borderColor,2), location.X - radius, location.Y - radius, radius * 2, radius * 2);
-            TextRenderer.DrawText(g, vertex.Info, new Font("Times New Roman",10), new Rectangle(location.X - radius, location.Y - radius, radius * 2, radius * 2), Color.White, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordEllipsis);
+            TextRenderer.DrawText(g, vertex.Info, new Font("Times New Roman",10), new Rectangle(location.X - radius, location.Y - radius, radius * 2, radius * 2), Color.Black, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordEllipsis);
         }
 
         private Vertex vertex;

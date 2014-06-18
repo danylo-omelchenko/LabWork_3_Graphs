@@ -19,22 +19,25 @@ namespace GraphView
             this.MouseMove += On_Mouse_Move;
         }
 
-        public List<Views> Views;
+        public List<Views> Views = new List<Views>();
         private Bitmap canvas = new Bitmap(1, 1);
 
-        public void Refresh()
+        public override void Refresh()
         {
             Graphics g = Graphics.FromImage(canvas);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(backColor);
+
             foreach (Views v in Views)
             {
                 v.Draw(g);
             }
+            this.Image = canvas;
         }
 
         private void On_Paint(Object sender, PaintEventArgs e)
         {
-            Refresh();
+
         }
 
         private void On_Resaize(Object sender, EventArgs e)
@@ -43,21 +46,13 @@ namespace GraphView
         }
 
         private Color backColor = Color.White;
-        public Color BackColor
+        public override Color BackColor
         {
             get { return backColor; }
             set { backColor = value; }
         }
 
         private void On_Mouse_Move(Object sender, MouseEventArgs e)
-        {
-            foreach (VertexView v in Views.OfType<VertexView>())
-            {
-                v.Raise_MouseLeave();
-            }
-        }
-
-        private void On_Mouse_Up(Object sender, MouseEventArgs e)
         {
             VertexView on_over = VertexHitTest(new Point(e.X, e.Y));
             foreach (VertexView v in Views.OfType<VertexView>())
@@ -68,9 +63,19 @@ namespace GraphView
                 }
                 else
                 {
-                    v.Raise_MouseUp();
+                    v.Raise_MouseLeave();
                 }
             }
+            Refresh();
+        }
+
+        private void On_Mouse_Up(Object sender, MouseEventArgs e)
+        {
+            foreach (VertexView v in Views.OfType<VertexView>())
+            {
+                    v.Raise_MouseUp();
+            }
+            Refresh();
         }
 
         private void On_Mouse_Down(Object sender, MouseEventArgs e)
@@ -80,6 +85,7 @@ namespace GraphView
             {
                 on_down.Raise_MouseDown();
             }
+            Refresh();
         }
 
         private VertexView VertexHitTest(Point point)
