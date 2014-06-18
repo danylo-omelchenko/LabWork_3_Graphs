@@ -20,7 +20,7 @@ namespace GraphImplementation
         {
             
         }
-
+        
         /// <summary>
         /// Создает новый граф на основе матрици смежности Matrix.
         /// </summary>
