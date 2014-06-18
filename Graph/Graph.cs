@@ -12,6 +12,11 @@ namespace GraphImplementation
         public event EventChange OnChange;
         private List<Vertex> Vertexes = new List<Vertex>();
 
+        /// <summary>
+        /// Получить вершину по индексу
+        /// </summary>
+        /// <param name="index">Индекс вершины</param>
+        /// <returns>Возвращает вершину, по её индексу</returns>
         public Vertex GetVertextByIndex(int index)
         {
             return Vertexes[index];
@@ -77,8 +82,15 @@ namespace GraphImplementation
             /// </summary>
             public void AddVertex()
             {
-                Vertexes.Add(new Vertex(Vertexes.Count.ToString()));
-                if (OnChange != null) OnChange(this);
+                try
+                {
+                    Vertexes.Add(new Vertex(Vertexes.Count.ToString()));
+                    if (OnChange != null) OnChange(this);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             /// <summary>
             /// Добавляет новую вершину в граф.
@@ -86,8 +98,15 @@ namespace GraphImplementation
             /// <param name="Info">Данные для новой вершины.</param>
             public void AddVertex(String Info)
             {
-                Vertexes.Add(new Vertex(Info));
-                if (OnChange != null) OnChange(this);
+                try
+                {
+                    Vertexes.Add(new Vertex(Info));
+                    if (OnChange != null) OnChange(this);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             /// <summary>
             /// Добавляет конкретную вершину в граф.
@@ -95,8 +114,15 @@ namespace GraphImplementation
             /// <param name="NewVertex">Вершина для добавления.</param>
             public void AddVertex(Vertex NewVertex)
             {
-                if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
-                if (OnChange != null) OnChange(this);
+                try
+                {
+                    if (!Vertexes.Contains(NewVertex)) Vertexes.Add(NewVertex);
+                    if (OnChange != null) OnChange(this);
+                }
+                catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             /// <summary>
             /// Удаляет вершину из графа.
@@ -104,12 +130,19 @@ namespace GraphImplementation
             /// <param name="DelVertex">Вершина, которую требуется удалить.</param>
             public void RemoveVertex(Vertex DelVertex)
             {
-                foreach (Vertex Incident in DelVertex.Incidented())
+                try
                 {
-                    Incident.Vertexes.Remove(DelVertex);
+                    foreach (Vertex Incident in DelVertex.Incidented())
+                    {
+                        Incident.Vertexes.Remove(DelVertex);
+                    }
+                    Vertexes.Remove(DelVertex);
+                    if (OnChange != null) OnChange(this);
                 }
-                Vertexes.Remove(DelVertex);
-                if (OnChange != null) OnChange(this);
+                catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             /// <summary>
             /// Удаляет вершину из графа по указанному индексу
@@ -117,12 +150,19 @@ namespace GraphImplementation
             /// <param name="DelIndex">Индекс вершины, которую требуется удалить.</param>
             public void RemoveVertex(Int32 DelIndex)
             {
-                foreach (Vertex Incident in Vertexes[DelIndex].Incidented())
+                try
                 {
-                    Incident.Vertexes.Remove(Vertexes[DelIndex]);
+                    foreach (Vertex Incident in Vertexes[DelIndex].Incidented())
+                    {
+                        Incident.Vertexes.Remove(Vertexes[DelIndex]);
+                    }
+                    Vertexes.Remove(Vertexes[DelIndex]);
+                    if (OnChange != null) OnChange(this);
                 }
-                Vertexes.Remove(Vertexes[DelIndex]);
-                if (OnChange != null) OnChange(this);
+                catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
         #endregion
         #region "operation with edges"
@@ -134,11 +174,18 @@ namespace GraphImplementation
             /// <param name="Vertex2">Вторая вершина, которая входит в добавляемое ребро.</param>
             public void AddEdge(Vertex Vertex1, Vertex Vertex2)
             {
-                if (Vertex1 != Vertex2)
+                try
                 {
-                    if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
-                    if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
-                    if (OnChange != null) OnChange(this);
+                    if (Vertex1 != Vertex2)
+                    {
+                        if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
+                        if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
+                        if (OnChange != null) OnChange(this);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
                 }
             }
             /// <summary>
@@ -172,9 +219,16 @@ namespace GraphImplementation
             /// <param name="Vertex2">Вторая вершина.</param>
             public void RemoveEdge(Vertex Vertex1, Vertex Vertex2)
             {
-                if (Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Remove(Vertex2);
-                if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
-                if (OnChange != null) OnChange(this);
+                try
+                {
+                    if (Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Remove(Vertex2);
+                    if (Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Remove(Vertex1);
+                    if (OnChange != null) OnChange(this);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
             /// <summary>
             /// Удаляет ребро соединяющие вершины с индексами Index1 и Index2, если таковые имеется.
@@ -293,7 +347,7 @@ namespace GraphImplementation
             bool flag=true;
             if (IsConnected())
             {
-                foreach(Vertex i in BFS())
+                foreach(Vertex i in Simple())
                 {
                     if(i.Degree % 2 !=0)
                     {
