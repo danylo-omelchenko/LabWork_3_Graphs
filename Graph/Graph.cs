@@ -199,7 +199,38 @@ namespace GraphImplementation
         public Boolean IsTree()
         {
             if (this.IsConnected())
-                return true;
+            {
+                int[,] matrix = this.GetMatrix();
+                int n=matrix.GetLength(0);
+                bool[] flag= new bool[n];
+                for (int j = 0; j < n; j++)
+                    flag[j] = true;
+                int i = 0;
+                int count = 0;
+                while(i<n)
+                {
+                    count = 0;
+                    for(int j=0;j<n;j++)
+                    {
+                        if (matrix[i, j] == 1 && flag[i] && flag[j])
+                        {
+                            count++;
+                        }
+                    }
+                    if (count == 1)
+                    {
+                        flag[i] = false;
+                        i = 0;
+                    }
+                    i++;
+                }
+                count = 0;
+                for (int j = 0; j < n;j++ )
+                {
+                    if (flag[i]) count++;
+                }
+                return (count==1);
+            }
             else
             {
                 return false;
@@ -210,19 +241,23 @@ namespace GraphImplementation
             int[,] matrix = this.GetMatrix();
             bool flag = true;
             bool inColumn;
-            for(int i=0;i<matrix.GetLength(0); i++)
+            int n=matrix.GetLength(0);
+            for (int i=0;i<n;i++)
             {
-                inColumn=false;
+                inColumn = false;
                 for (int j = 0; j < matrix.GetLength(i); j++)
                 {
-                    if(matrix[i,j]!=0)
+                    if (matrix[i, j] != 0)
                     {
                         inColumn = true;
                         break;
                     }
                 }
-                if (!inColumn) flag = false;
-                break;
+                if (!inColumn)
+                {
+                    flag = false;
+                    break;
+                }
             }
             return flag;
         }
