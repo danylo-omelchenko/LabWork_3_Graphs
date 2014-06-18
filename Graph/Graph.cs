@@ -245,7 +245,7 @@ namespace GraphImplementation
             for (int i=0;i<n;i++)
             {
                 inColumn = false;
-                for (int j = 0; j < matrix.GetLength(i); j++)
+                for (int j = 0; j < matrix.GetLength(0); j++)
                 {
                     if (matrix[i, j] != 0)
                     {
