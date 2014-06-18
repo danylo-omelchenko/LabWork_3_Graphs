@@ -307,22 +307,68 @@ namespace GraphImplementation
                 return false;
         }
         /// <summary>
-        /// Возвращает исключение
+        /// Проверка на лес
         /// </summary>
-        /// <returns>Таки исключение</returns>
-        public Boolean IsHamelton()
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// Возвращает исключение
-        /// </summary>
-        /// <returns>Таки исключение</returns>
+        /// <returns>Возвращает является ли граф лесом</returns>
         public Boolean IsWood()
         {
-            throw new NotImplementedException();
+            bool flag=true;
+            foreach(Graph g in GetComponents())
+            {
+                if (!g.IsTree())
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
         }
+        /// <summary>
+        /// Разбиение на комоненты связности
+        /// </summary>
+        /// <returns>Возвращает список графов</returns>
+        public List<Graph> GetComponents()
+        {
+            List<Graph> listG= new List<Graph>();
+            List<Vertex> iteratorList = new List<Vertex>();
+            List<Vertex> vertexes = new List<Vertex>();
+            if (Vertexes.Count != 0)
+            {
+                foreach (Vertex i in this.Vertexes)
+                {
+                    if (!iteratorList.Contains(i))
+                    {
+                        vertexes.Clear();
+                        DFScompRec(i, iteratorList,vertexes);
+                        listG.Add(new Graph());
+                        foreach(Vertex v in vertexes)
+                        {
+                            listG[listG.Count - 1].AddVertex(v);
+                        }
+                    }
+                }
+            }
+            return listG;
+        }
+        private void DFScompRec(Vertex v, List<Vertex> list,List<Vertex> vertexes)
+        {
+            if (!list.Contains(v))
+            {
+                list.Add(v);
+                vertexes.Add(v);
+                DFScompRec(v, list, vertexes);
+            }
+            foreach (Vertex i in v.Incidented())
+            {
+                if (!list.Contains(i))
+                {
+                    list.Add(i);
+                    vertexes.Add(i);
+                    DFScompRec(i, list,vertexes);
 
+                }
+            }
+        }
         #region "iterators"
 
             /// <summary>

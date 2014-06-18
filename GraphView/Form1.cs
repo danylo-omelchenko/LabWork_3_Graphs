@@ -24,7 +24,8 @@ namespace GraphView
             label1.Text =
                            "Is tree: \t" + g.IsTree().ToString() + "\n" +
                             "Is connected: \t" + g.IsConnected().ToString() + "\n" +
-                            "Is Euler: \t" + g.IsEuler().ToString() + "\n";
+                            "Is Euler: \t" + g.IsEuler().ToString() + "\n" +
+                             "Is Wood: \t" + g.IsWood().ToString() + "\n";
             listBox2.Items.Clear();
             foreach(Edge i in g.Edges())
             {
@@ -100,6 +101,21 @@ namespace GraphView
         {
             GraphForm grf = new GraphForm();
             grf.Show();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            listBox5.Items.Clear();
+            int c=0;
+            foreach(Graph i in g.GetComponents())
+            {
+                listBox5.Items.Add("Graph" + c.ToString());
+                foreach(Vertex j in i.Simple())
+                {
+                    listBox5.Items.Add(j.Info);
+                }
+                c++;
+            }
         }
 
 
