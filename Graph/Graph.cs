@@ -198,14 +198,14 @@ namespace GraphImplementation
         }
         public Boolean IsTree()
         {
-            if (this.IsСonnected())
+            if (this.IsConnected())
                 return true;
             else
             {
                 return false;
             }
         }
-        public Boolean IsСonnected()
+        public Boolean IsConnected()
         {
             int[,] matrix = this.GetMatrix();
             bool flag = true;
