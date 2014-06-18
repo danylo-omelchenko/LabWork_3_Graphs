@@ -25,6 +25,16 @@ namespace GraphView
                            "Is tree: \t" + g.IsTree().ToString() + "\n" +
                             "Is connected: \t" + g.IsConnected().ToString() + "\n" +
                             "Is Euler: \t" + g.IsEuler().ToString() + "\n";
+            listBox2.Items.Clear();
+            foreach(Edge i in g.Edges())
+            {
+                listBox2.Items.Add(i);
+            }
+            listBox1.Items.Clear();
+            foreach (Vertex i in g.BFS())
+            {
+                listBox1.Items.Add(i.Info);
+            }
         }
 
         private void Load_Click(object sender, EventArgs e)
