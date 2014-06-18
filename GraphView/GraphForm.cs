@@ -12,10 +12,15 @@ namespace GraphView
 {
     public partial class GraphForm : Form
     {
+        Graph graph = new Graph();
+
         public GraphForm()
         {
             InitializeComponent();
+            //graph.OnChange() += ;
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -27,30 +32,57 @@ namespace GraphView
             v.MouseUp += On_MouseUp;
             v.MouseLeave += On_MouseLeave;
             v.MouseEnter += On_MouseEnter;
+            v.MouseMove += On_MouseMove;
             canvasView1.Views.Add(v);
             canvasView1.Refresh();
         }
 
+        VertexView moving = null;
+        Point StartPoint;
+        Point OldPoint;
         private void On_MouseDown(Views sender)
         {
-            (sender as VertexView).BackColor = Color.Red;
+            canvasView1.BringToFront(sender);
+            moving = (VertexView)sender;
+            OldPoint = moving.Location;
+            StartPoint = MousePosition;
+            //(sender as VertexView).BackColor = Color.Red;
         }
 
         private void On_MouseUp(Views sender)
         {
-            (sender as VertexView).BackColor = Color.GreenYellow;
+            moving = null;
+           
+           // (sender as VertexView).BackColor = Color.GreenYellow;
         }
+
+        private void On_MouseMove(Views sender)
+        {
+            if (moving != null)
+            {
+                moving.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
+                //canvasView1.Refresh();
+            }
+            // (sender as VertexView).BackColor = Color.GreenYellow;
+        }
+
+
 
         private void On_MouseEnter(Views sender)
         {
-            (sender as VertexView).BackColor = Color.Pink;
+           // (sender as VertexView).BackColor = Color.Pink;
         }
 
         private void On_MouseLeave(Views sender)
         {
-            (sender as VertexView).BackColor = Color.GreenYellow;
+           // (sender as VertexView).BackColor = Color.GreenYellow;
         }
 
-        List<VertexView> Vertexes = new List<VertexView>();
+        
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

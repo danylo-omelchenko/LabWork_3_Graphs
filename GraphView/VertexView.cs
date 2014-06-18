@@ -16,6 +16,7 @@ namespace GraphView
         public event MouseHandler MouseUp;
         public event MouseHandler MouseEnter;
         public event MouseHandler MouseLeave;
+        public event MouseHandler MouseMove;
 
         public void Raise_MouseDown()
         {
@@ -50,6 +51,14 @@ namespace GraphView
             { 
                 MouseLeave(this);
                 isOver = false;
+            }
+        }
+
+        public void Raise_MouseMove()
+        {
+            if (MouseMove != null && isOver)
+            {
+                MouseMove(this);
             }
         }
 

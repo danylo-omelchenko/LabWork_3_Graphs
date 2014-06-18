@@ -22,6 +22,20 @@ namespace GraphView
         public List<Views> Views = new List<Views>();
         private Bitmap canvas = new Bitmap(1, 1);
 
+        public void BringToFront(Views v)
+        {
+            for (int i = Views.Count - 1; i > 0; i--)
+            {
+                if (Views[i] == v)
+                {
+                    Views tmp = Views[i];
+                    Views[i] = Views[i - 1];
+                    Views[i - 1] = tmp;
+                }
+            }
+            Refresh();
+        }
+
         public override void Refresh()
         {
             Graphics g = Graphics.FromImage(canvas);
@@ -60,6 +74,7 @@ namespace GraphView
                 if (on_over != null && v == on_over)
                 {
                     on_over.Raise_MouseEnter();
+                    on_over.Raise_MouseMove();
                 }
                 else
                 {
