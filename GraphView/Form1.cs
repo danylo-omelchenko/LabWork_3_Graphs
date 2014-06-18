@@ -22,8 +22,9 @@ namespace GraphView
         public void Update(Graph sender)
         {
             label1.Text =
-                           //"Is tree: \t" + g.IsTree().ToString() + "\n" +
-                            "Is connected: \t" + g.IsConnected().ToString() + "\n";
+                           "Is tree: \t" + g.IsTree().ToString() + "\n" +
+                            "Is connected: \t" + g.IsConnected().ToString() + "\n" +
+                            "Is Euler: \t" + g.IsEuler().ToString() + "\n";
         }
 
         private void Load_Click(object sender, EventArgs e)
@@ -39,7 +40,7 @@ namespace GraphView
 
         private void button3_Click(object sender, EventArgs e)
         {
-            g.AddVertex();
+            g.AddVertex(textBox4.Text);
         }
 
         private void button6_Click(object sender, EventArgs e)

@@ -45,6 +45,7 @@
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -199,11 +200,19 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(183, 189);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(37, 20);
+            this.textBox4.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(691, 397);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.listBox3);
@@ -247,6 +256,7 @@
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
 

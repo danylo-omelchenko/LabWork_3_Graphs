@@ -125,7 +125,7 @@ namespace GraphImplementation
             /// <summary>
             /// Удаляет вершину из графа по указанному индексу
             /// </summary>
-            /// <param name="DelVertex">Вершина, которую требуется удалить.</param>
+            /// <param name="DelIndex">Индекс вершины, которую требуется удалить.</param>
             public void RemoveVertex(Int32 DelIndex)
             {
                 foreach (Vertex Incident in Vertexes[DelIndex].Incidented())
@@ -182,8 +182,8 @@ namespace GraphImplementation
             /// <summary>
             /// Удаляет ребро соединяющие вершины с индексами Index1 и Index2, если таковые имеется.
             /// </summary>
-            /// <param name="Vertex1">Индекс первой вершины.</param>
-            /// <param name="Vertex2">Индекс второй вершины</param>
+            /// <param name="Index1">Индекс первой вершины.</param>
+            /// <param name="Index2">Индекс второй вершины</param>
             public void RemoveEdge(Int32 Index1, Int32 Index2)
             {
                 if (Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Remove(Vertexes[Index2]);
@@ -242,10 +242,11 @@ namespace GraphImplementation
             bool flag = true;
             bool inColumn;
             int n=matrix.GetLength(0);
+            if (n == 1) return true;
             for (int i=0;i<n;i++)
             {
                 inColumn = false;
-                for (int j = 0; j < matrix.GetLength(0); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     if (matrix[i, j] != 0)
                     {
@@ -259,6 +260,7 @@ namespace GraphImplementation
                     break;
                 }
             }
+            
             return flag;
         }
       
@@ -303,10 +305,13 @@ namespace GraphImplementation
                 Dictionary<Vertex, bool> Mark;
                 iteratorList = new List<Vertex>();
                 Mark = new Dictionary<Vertex, bool>();
-                DFSrec(Vertexes[0],iteratorList,Mark);
-                foreach(Vertex i in iteratorList)
+                if (Vertexes.Count != 0)
                 {
-                    yield return i;
+                    DFSrec(Vertexes[0], iteratorList, Mark);
+                    foreach (Vertex i in iteratorList)
+                    {
+                        yield return i;
+                    }
                 }
             }
             private void DFSrec(Vertex v,List<Vertex> list,Dictionary<Vertex,bool> Mark)
@@ -340,10 +345,13 @@ namespace GraphImplementation
                 Dictionary<Vertex, bool> Mark;
                 iteratorList = new List<Vertex>();
                 Mark = new Dictionary<Vertex, bool>();
-                BFSrec(Vertexes[0], iteratorList, Mark);
-                foreach (Vertex i in iteratorList)
+                if (Vertexes.Count != 0)
                 {
-                    yield return i;
+                    BFSrec(Vertexes[0], iteratorList, Mark);
+                    foreach (Vertex i in iteratorList)
+                    {
+                        yield return i;
+                    }
                 }
             }
             private void BFSrec(Vertex v, List<Vertex> list, Dictionary<Vertex, bool> Mark)
