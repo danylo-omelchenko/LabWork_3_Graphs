@@ -294,7 +294,25 @@ namespace GraphImplementation
 
         #region "iterators"
 
-           
+             /// <summary>
+            /// Обход графа по ребрам.
+            /// </summary>
+            /// <returns>Возвращает все ребра графа.</returns>
+            public IEnumerable<Edge> Edges()
+            {
+                int[,] matrix = this.GetMatrix();
+                int n=matrix.GetLength(0);
+                for(int i=0;i<n;i++)
+                {
+                    for (int j = i+1; j < n; j++)
+                    {
+                        if(matrix[i,j]!=0)
+                        {
+                            yield return new Edge(Vertexes[i], Vertexes[j]);
+                        }
+                    }
+                }
+            }
             /// <summary>
             /// Обход графа в глубину.
             /// </summary>
@@ -307,7 +325,14 @@ namespace GraphImplementation
                 Mark = new Dictionary<Vertex, bool>();
                 if (Vertexes.Count != 0)
                 {
-                    DFSrec(Vertexes[0], iteratorList, Mark);
+
+                    foreach (Vertex i in this.Vertexes)
+                    {
+                        if (!Mark.ContainsKey(i))
+                        {
+                            DFSrec(i, iteratorList, Mark);
+                        }
+                    }
                     foreach (Vertex i in iteratorList)
                     {
                         yield return i;
@@ -362,7 +387,7 @@ namespace GraphImplementation
                 queue.Enqueue(v);
                 list.Add(v);
                 Mark.Add(v, true);
-                foreach (Vertex i in v.Incidented())
+                foreach (Vertex i in this.Vertexes)
                 {
                     if (!Mark.ContainsKey(i))
                     {

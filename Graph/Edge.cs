@@ -17,5 +17,9 @@ namespace GraphImplementation
         }
         public Vertex Vertex1;
         public Vertex Vertex2;
+        public override string ToString()
+        {
+            return Vertex1.Info + " - " + Vertex2.Info;
+        }
     }
 }
