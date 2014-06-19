@@ -15,10 +15,8 @@ namespace GraphView
         /// </summary>
         /// <param name="FileName">Путь к файлу</param>
         /// <returns>Возвращает граф, загруженный из файла</returns>
-        public static Graph LoadFromFile(String FileName)
+        public static void LoadFromFile(ref Graph g, String FileName)
         {
-            Graph g = new Graph();
-
             String[] lines = File.ReadAllLines(FileName);
             
             Int32 cursor = 0;
@@ -40,8 +38,6 @@ namespace GraphView
                 v.Info = lines[cursor];
                 cursor++;
             }
-
-            return g;
 
         }
         /// <summary>
@@ -92,7 +88,7 @@ namespace GraphView
             if (dr != DialogResult.Cancel)
             {
                 g.Clear();
-                g = LoadFromFile(ofd.FileName);
+                LoadFromFile(ref g, ofd.FileName);
             }
         }
 

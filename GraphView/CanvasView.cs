@@ -45,6 +45,15 @@ namespace GraphView
             }
             return null;
         }
+        public EdgeView FindViewByEdge(Edge edge)
+        {
+            foreach (EdgeView v in Views.OfType<EdgeView>())
+            {
+                if (v.Edge == edge) return v;
+            }
+            return null;
+        }
+
         public override void Refresh()
         {
             Graphics g = Graphics.FromImage(canvas);

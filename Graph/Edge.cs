@@ -22,5 +22,21 @@ namespace GraphImplementation
         {
             return Vertex1.Info + " - " + Vertex2.Info;
         }
+
+        public static bool operator ==(Edge e1, Edge e2)
+        {
+            if ((e1.Vertex1 == e2.Vertex1 && e1.Vertex2 == e2.Vertex2) || (e1.Vertex1 == e2.Vertex2 && e1.Vertex2 == e2.Vertex1))
+                return true;
+            else
+                return false;
+        }
+
+        public static bool operator !=(Edge e1, Edge e2)
+        {
+            if ((e1.Vertex1 == e2.Vertex1 && e1.Vertex2 == e2.Vertex2) || (e1.Vertex1 == e2.Vertex2 && e1.Vertex2 == e2.Vertex1))
+                return false;
+            else
+                return true;
+        }
     }
 }

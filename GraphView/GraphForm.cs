@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Forms;
 using GraphImplementation;
 
@@ -27,18 +28,23 @@ namespace GraphView
             canvasView1.MouseMove += On_MouseMove;
         }
 
-        public void On_Change(Graph sender){
+        public void On_Change(Graph sender)
+        {
 
         }
+
         public void On_VertexRemoved(Graph sender, Vertex vertex)
         {
             VertexView v = canvasView1.FindViewByVertex(vertex);
-            v.MouseDown -= On_MouseDown;
-            v.MouseUp -= On_MouseUp;
-            v.MouseLeave -= On_MouseLeave;
-            v.MouseEnter -= On_MouseEnter;
-            canvasView1.Views.Remove(v);
+            if (v != null){ 
+                v.MouseDown -= On_MouseDown;
+                v.MouseUp -= On_MouseUp;
+                v.MouseLeave -= On_MouseLeave;
+                v.MouseEnter -= On_MouseEnter;
+                canvasView1.Views.Remove(v);
+            }
             v = null;
+            canvasView1.Refresh();
         }
         public void On_VertexAdded(Graph sender, Vertex vertex)
         {
@@ -55,11 +61,19 @@ namespace GraphView
         }
         public void On_EdgeRemoved(Graph sender, Edge edge)
         {
-
+            EdgeView e = canvasView1.FindViewByEdge(edge);
+            if (e != null) canvasView1.Views.Remove(e);
+            canvasView1.Refresh();
         }
+
         public void On_EdgeAdded(Graph sender, Edge edge)
         {
-
+            EdgeView e = new EdgeView();
+            e.Edge = edge;
+            e.Point1 = canvasView1.FindViewByVertex(edge.Vertex1).Location;
+            e.Point2 = canvasView1.FindViewByVertex(edge.Vertex2).Location;
+            canvasView1.Views.Add(e);
+            canvasView1.Refresh();
         }
 
 
@@ -73,6 +87,13 @@ namespace GraphView
         Point OldPoint;
         private void On_MouseDown(Views sender)
         {
+            
+            foreach (VertexView v in canvasView1.Views.OfType < VertexView>())
+            {
+                v.IsSelected = false;
+            }
+            (sender as VertexView).IsSelected = true;
+
             canvasView1.BringToFront(sender);
             moving = (VertexView)sender;
             OldPoint = moving.Location;
@@ -108,10 +129,30 @@ namespace GraphView
         {
            // (sender as VertexView).BackColor = Color.GreenYellow;
         }
-
         
 
         private void button2_Click(object sender, EventArgs e)
+        {
+            GraphController.Open(ref graph);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            List<Vertex> ToRemove = new List<Vertex>();
+            foreach (VertexView v in canvasView1.Views.OfType<VertexView>())
+            {
+                if (v.IsSelected)
+                {
+                    ToRemove.Add(v.Vertex);
+                }
+            }
+            foreach (Vertex v in ToRemove)
+            {
+                graph.RemoveVertex(v);
+            }
+        }
+
+        private void canvasView1_Click(object sender, EventArgs e)
         {
 
         }

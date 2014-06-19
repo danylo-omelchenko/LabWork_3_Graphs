@@ -27,6 +27,8 @@ namespace GraphView
             }
         }
 
+        public Boolean IsSelected = false;
+
         public void Raise_MouseUp()
         {
             if (MouseUp != null && isDown)
@@ -67,8 +69,17 @@ namespace GraphView
 
         void Views.Draw(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(backColor), location.X - radius, location.Y - radius, radius * 2, radius*2);
-            g.DrawEllipse(new Pen(borderColor,2), location.X - radius, location.Y - radius, radius * 2, radius * 2);
+            if(IsSelected)
+            {
+                g.FillEllipse(new SolidBrush(selectedColor), location.X - radius, location.Y - radius, radius * 2, radius * 2);
+                g.DrawEllipse(new Pen(borderColor, 4), location.X - radius, location.Y - radius, radius * 2, radius * 2);
+            }
+            else
+            {
+                g.FillEllipse(new SolidBrush(backColor), location.X - radius, location.Y - radius, radius * 2, radius * 2);
+                g.DrawEllipse(new Pen(borderColor, 2), location.X - radius, location.Y - radius, radius * 2, radius * 2);
+            }
+         
             TextRenderer.DrawText(g, vertex.Info, new Font("Times New Roman",10), new Rectangle(location.X - radius, location.Y - radius, radius * 2, radius * 2), Color.Black, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordEllipsis);
         }
 
@@ -100,7 +111,14 @@ namespace GraphView
             set { backColor = value; }
         }
 
-        private Color borderColor = Color.Black;
+        private Color selectedColor = Color.Yellow;
+        public Color SelectedColor
+        {
+            get { return selectedColor; }
+            set { selectedColor = value; }
+        }
+
+        private Color borderColor = Color.Green;
         public Color BorderColor
         {
             get { return borderColor; }

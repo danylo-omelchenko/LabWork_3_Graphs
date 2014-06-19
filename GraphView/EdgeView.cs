@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using GraphImplementation;
 
 namespace GraphView
 {
-    class EdgeView:Views
+    public class EdgeView:Views
     {
         void Views.Draw(System.Drawing.Graphics g)
         {
@@ -39,5 +40,10 @@ namespace GraphView
             get { return color; }
             set { color = value; }
         }
+
+
+        public Edge Edge;
+
+
     }
 }

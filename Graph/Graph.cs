@@ -155,11 +155,13 @@ namespace GraphImplementation
             {
                 try
                 {
+                    if (OnVertexRemoved != null) OnVertexRemoved(this, DelVertex);
                     foreach (Vertex Incident in DelVertex.Incidented())
                     {
+                        if (OnEdgeRemoved != null) OnEdgeRemoved(this, new Edge(Incident,DelVertex));
                         Incident.Vertexes.Remove(DelVertex);
+                       
                     }
-                    if (OnVertexRemoved != null) OnVertexRemoved(this, DelVertex);
                     Vertexes.Remove(DelVertex);
                     if (OnChange != null) OnChange(this);
                 }
@@ -178,6 +180,7 @@ namespace GraphImplementation
                 {
                     foreach (Vertex Incident in Vertexes[DelIndex].Incidented())
                     {
+                        if (OnEdgeRemoved != null) OnEdgeRemoved(this, new Edge(Incident, Vertexes[DelIndex]));
                         Incident.Vertexes.Remove(Vertexes[DelIndex]);
                     }
                     if (OnVertexRemoved != null) OnVertexRemoved(this, Vertexes[DelIndex]);
