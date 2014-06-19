@@ -7,8 +7,10 @@ using System.Drawing;
 namespace GraphView
 {
     public delegate void MouseHandler(Views sender);
+    
     public interface Views
     {
+        
         void Draw(Graphics g);
     }
 }
