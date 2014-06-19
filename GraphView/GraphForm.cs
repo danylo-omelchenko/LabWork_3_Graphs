@@ -155,6 +155,7 @@ namespace GraphView
                     }
                     isFindWay = false;
                     button4.Enabled = true ;
+                    button4.Text = "Find Way";
                 }
             }
             else
@@ -291,6 +292,7 @@ namespace GraphView
             {
                 isFindWay = true;
                 button4.Enabled = false;
+                button4.Text = "Select end vertex";
             }
             else
             {

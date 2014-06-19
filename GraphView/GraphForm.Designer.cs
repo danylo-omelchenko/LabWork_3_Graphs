@@ -33,8 +33,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
-            this.canvasView1 = new GraphView.CanvasView();
             this.button4 = new System.Windows.Forms.Button();
+            this.canvasView1 = new GraphView.CanvasView();
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,6 +83,16 @@
             this.propertyGrid2.TabIndex = 5;
             this.propertyGrid2.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid2_PropertyValueChanged);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(12, 160);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(112, 23);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "Find Way";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // canvasView1
             // 
             this.canvasView1.Location = new System.Drawing.Point(130, 12);
@@ -91,16 +101,6 @@
             this.canvasView1.TabIndex = 0;
             this.canvasView1.TabStop = false;
             this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(12, 160);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(112, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "FindWay";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // GraphForm
             // 
@@ -115,7 +115,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.canvasView1);
             this.Name = "GraphForm";
-            this.Text = "GraphForm";
+            this.Text = "реждним";
             this.Load += new System.EventHandler(this.GraphForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).EndInit();
             this.ResumeLayout(false);
