@@ -33,8 +33,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
-            this.canvasView1 = new GraphView.CanvasView();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.canvasView1 = new GraphView.CanvasView();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,15 +86,6 @@
             this.propertyGrid2.TabIndex = 5;
             this.propertyGrid2.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid2_PropertyValueChanged);
             // 
-            // canvasView1
-            // 
-            this.canvasView1.Location = new System.Drawing.Point(130, 12);
-            this.canvasView1.Name = "canvasView1";
-            this.canvasView1.Size = new System.Drawing.Size(593, 530);
-            this.canvasView1.TabIndex = 0;
-            this.canvasView1.TabStop = false;
-            this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
-            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(12, 160);
@@ -102,11 +96,53 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(12, 189);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(112, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "BFS";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(12, 218);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(112, 23);
+            this.button6.TabIndex = 8;
+            this.button6.Text = "DFS";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // canvasView1
+            // 
+            this.canvasView1.Location = new System.Drawing.Point(130, 12);
+            this.canvasView1.Name = "canvasView1";
+            this.canvasView1.Size = new System.Drawing.Size(593, 530);
+            this.canvasView1.TabIndex = 0;
+            this.canvasView1.TabStop = false;
+            this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(12, 247);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(112, 23);
+            this.button7.TabIndex = 9;
+            this.button7.Text = "Clear HighLight";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // GraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 554);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.propertyGrid2);
             this.Controls.Add(this.propertyGrid1);
@@ -131,5 +167,8 @@
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.PropertyGrid propertyGrid2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }

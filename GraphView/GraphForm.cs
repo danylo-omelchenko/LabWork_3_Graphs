@@ -135,14 +135,7 @@ namespace GraphView
                 }
                 else
                 {
-                    foreach (VertexView v in canvasView1.Views.OfType<VertexView>())
-                    {
-                        v.isHighLighted = false;
-                    }
-                    foreach (EdgeView v in canvasView1.Views.OfType<EdgeView>())
-                    {
-                        v.IsHighLighted = false;
-                    }
+                    clearHighLight();
                     Vertex last = null;
                     List<Vertex> way = new List<Vertex>();
                     try
@@ -311,6 +304,58 @@ namespace GraphView
         private void propertyGrid2_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             canvasView1.Refresh();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(BFSview);
+            
+            t.Start();
+        }
+        private void BFSview()
+        {
+            clearHighLight();
+            foreach(Vertex v in graph.BFS())
+            {
+                canvasView1.FindViewByVertex(v).isHighLighted = true;
+                canvasView1.Refresh();
+                System.Threading.Thread.Sleep(200);
+            }
+            
+        }
+        public void clearHighLight()
+        {
+            foreach (VertexView v in canvasView1.Views.OfType<VertexView>())
+            {
+                v.isHighLighted = false;
+            }
+            foreach (EdgeView v in canvasView1.Views.OfType<EdgeView>())
+            {
+                v.IsHighLighted = false;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread t = new System.Threading.Thread(DFSview);
+
+            t.Start();
+        }
+        private void DFSview()
+        {
+            clearHighLight();
+            foreach (Vertex v in graph.DFS())
+            {
+                canvasView1.FindViewByVertex(v).isHighLighted = true;
+                canvasView1.Refresh();
+                System.Threading.Thread.Sleep(200);
+            }
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            clearHighLight();
         }
     }
 }
