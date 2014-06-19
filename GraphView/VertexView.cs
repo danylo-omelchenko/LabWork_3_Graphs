@@ -43,7 +43,7 @@ namespace GraphView
         private Boolean IsHighLighted
         {
             get { return isHighLighted; }
-            set { isHighLighted = value; }
+            set { isHighLighted = value;  }
         }
         public Boolean IsSelected = false;
         
