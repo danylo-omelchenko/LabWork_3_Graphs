@@ -7,10 +7,18 @@ namespace GraphImplementation
 {
     public class Edge
     {
+        /// <summary>
+        /// Страндартный конструктор
+        /// </summary>
         public Edge()
         {
 
         }
+        /// <summary>
+        /// Создает экземпляр ребра графа между двумя вершинами
+        /// </summary>
+        /// <parparam name="Vertex1">Первая вершина</parparam>
+        /// <param name="Vertex2">Вторая вершина</param>
         public Edge(Vertex Vertex1, Vertex Vertex2)
         {
             this.Vertex1 = Vertex1;

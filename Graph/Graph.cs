@@ -9,16 +9,32 @@ namespace GraphImplementation
     public class Graph
     {
         public delegate void EventChange(Graph sender);
+        /// <summary>
+        /// Происходит когда граф был изменен (добавлена или удалена вершина или ребро)
+        /// </summary>
         public event EventChange OnChange;
 
         public delegate void EventVertexRemoved(Graph sender,Vertex vertex);
+        /// <summary>
+        /// Происходит при удалении  вершины
+        /// </summary>
         public event EventVertexRemoved OnVertexRemoved;
+       
         public delegate void EventVertexAdded(Graph sender, Vertex vertex);
+        /// <summary>
+        /// Происходит при добавлении вершины
+        /// </summary>
         public event EventVertexAdded OnVertexAdded;
 
         public delegate void EventEdgeRemoved(Graph sender, Edge edge);
+        /// <summary>
+        /// Происходит при удалении ребра
+        /// </summary>
         public event EventEdgeRemoved OnEdgeRemoved;
         public delegate void EventEdgeAdded(Graph sender, Edge edge);
+        /// <summary>
+        /// Происходит при добавлении ребра
+        /// </summary>
         public event EventEdgeAdded OnEdgeAdded;
 
         private List<Vertex> Vertexes = new List<Vertex>();

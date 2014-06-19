@@ -335,6 +335,7 @@ namespace GraphView
             {
                 v.IsHighLighted = false;
             }
+
         }
 
         private void button6_Click(object sender, EventArgs e)
