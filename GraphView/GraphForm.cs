@@ -359,5 +359,16 @@ namespace GraphView
         {
             clearHighLight();
         }
+
+        private void canvasView1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            if (canvasView1.VertexHitTest(new Point(e.X,e.Y)) == null && e.Button == MouseButtons.Right)
+            {
+                graph.AddVertex();
+                (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Location = new Point(e.X, e.Y);
+            }
+
+        }
     }
 }
