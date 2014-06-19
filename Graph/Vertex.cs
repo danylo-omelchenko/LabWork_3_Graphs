@@ -7,15 +7,25 @@ using System.ComponentModel;
 namespace GraphImplementation
 {
     public class Vertex
-    {
+    { 
+        /// <summary>
+        /// Стандартный конструктор
+        /// </summary>
         public Vertex()
         {
             
-        }
+        } 
+        /// <summary>
+        /// Создает вершину, добавляя в нее информацию
+        /// </summary>
+        /// <param name="Info">Информация</param>
         public Vertex(String Info)
         {
             this.info = Info;
         }
+        /// <summary>
+        /// Вершины, с которыми имеет связь данный узел
+        /// </summary>
         public List<Vertex> Vertexes = new List<Vertex>();
         private String info;
 
