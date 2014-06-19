@@ -36,14 +36,15 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.canvasView1 = new GraphView.CanvasView();
             this.button7 = new System.Windows.Forms.Button();
+            this.canvasView1 = new GraphView.CanvasView();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 41);
+            this.button1.Location = new System.Drawing.Point(12, 85);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 23);
             this.button1.TabIndex = 1;
@@ -63,7 +64,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 70);
+            this.button3.Location = new System.Drawing.Point(12, 114);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(112, 23);
             this.button3.TabIndex = 3;
@@ -116,16 +117,6 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // canvasView1
-            // 
-            this.canvasView1.Location = new System.Drawing.Point(130, 12);
-            this.canvasView1.Name = "canvasView1";
-            this.canvasView1.Size = new System.Drawing.Size(593, 530);
-            this.canvasView1.TabIndex = 0;
-            this.canvasView1.TabStop = false;
-            this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
-            this.canvasView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvasView1_MouseUp);
-            // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(12, 247);
@@ -136,11 +127,32 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // canvasView1
+            // 
+            this.canvasView1.Location = new System.Drawing.Point(130, 12);
+            this.canvasView1.Name = "canvasView1";
+            this.canvasView1.Size = new System.Drawing.Size(593, 530);
+            this.canvasView1.TabIndex = 0;
+            this.canvasView1.TabStop = false;
+            this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
+            this.canvasView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvasView1_MouseUp);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(12, 41);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(112, 23);
+            this.button8.TabIndex = 10;
+            this.button8.Text = "Save Graph";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // GraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 554);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -171,5 +183,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
