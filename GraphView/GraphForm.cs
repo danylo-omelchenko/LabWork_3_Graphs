@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Forms;
 using GraphImplementation;
-using System.Drawing;
 
 namespace GraphView
 {
@@ -49,6 +48,11 @@ namespace GraphView
         }
         public void On_VertexAdded(Graph sender, Vertex vertex)
         {
+            canvasView1.Views.Add(VertexAdd(vertex));
+            canvasView1.Refresh();
+        }
+        private VertexView VertexAdd(Vertex vertex)
+        {
             Random r = new Random(DateTime.Now.Millisecond);
             VertexView v = new VertexView();
             v.Vertex = vertex;
@@ -56,9 +60,19 @@ namespace GraphView
             v.MouseDown += On_MouseDown;
             v.MouseUp += On_MouseUp;
             v.MouseLeave += On_MouseLeave;
+            v.MouseEnter += On_MouseEnter; 
+            return v;
+        }
+        private VertexView VertexAdd(Vertex vertex, Point location)
+        {
+            VertexView v = new VertexView();
+            v.Vertex = vertex;
+            v.Location = location;
+            v.MouseDown += On_MouseDown;
+            v.MouseUp += On_MouseUp;
+            v.MouseLeave += On_MouseLeave;
             v.MouseEnter += On_MouseEnter;
-            canvasView1.Views.Add(v);
-            canvasView1.Refresh();
+            return v;
         }
         public void On_EdgeRemoved(Graph sender, Edge edge)
         {
