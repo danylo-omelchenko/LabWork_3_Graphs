@@ -135,6 +135,7 @@
             this.canvasView1.TabIndex = 0;
             this.canvasView1.TabStop = false;
             this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
+            this.canvasView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvasView1_MouseUp);
             // 
             // button8
             // 
