@@ -158,7 +158,7 @@ namespace GraphView
                     }
                     isFindWay = false;
                     button4.Enabled = true ;
-                    button4.Text = "Find Way";
+                    button4.BackgroundImage = global::GraphView.Properties.Resources.WAY;
                 }
             }
             else
@@ -235,9 +235,9 @@ namespace GraphView
                }
                else
                {
-                   graph.AddVertex();
-                   (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Location = VPreview.Location;
-                   graph.AddEdge(EPreview.Edge.Vertex1, (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Vertex);
+                       graph.AddVertex();
+                       (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Location = VPreview.Location;
+                       graph.AddEdge(EPreview.Edge.Vertex1, (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Vertex);
                }
                canvasView1.Views.Remove(VPreview);
                canvasView1.Views.Remove(EPreview);
@@ -295,11 +295,11 @@ namespace GraphView
             {
                 isFindWay = true;
                 button4.Enabled = false;
-                button4.Text = "Select end vertex";
+                button4.BackgroundImage = global::GraphView.Properties.Resources.WAY_DISENABLED;
             }
             else
             {
-                throw new Exception("Вершина не выделена");
+                MessageBox.Show("Вершина не выделена");
             }
         }
 
