@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Forms;
 using GraphImplementation;
+using System.Drawing;
 
 namespace GraphView
 {
@@ -85,26 +86,41 @@ namespace GraphView
         VertexView moving = null;
         Point StartPoint;
         Point OldPoint;
+
+        Boolean isAdding = false;
         private void On_MouseDown(Views sender)
         {
             
-            foreach (VertexView v in canvasView1.Views.OfType < VertexView>())
+            if(MouseButtons == MouseButtons.Left)
             {
-                v.IsSelected = false;
-            }
-            (sender as VertexView).IsSelected = true;
+                foreach (VertexView v in canvasView1.Views.OfType < VertexView>())
+                {
+                    v.IsSelected = false;
+                }
+                (sender as VertexView).IsSelected = true;
+                canvasView1.BringToFront(sender);
+                moving = (VertexView)sender;
 
-            canvasView1.BringToFront(sender);
-            moving = (VertexView)sender;
-            OldPoint = moving.Location;
+            }
+            else
+            {
+               
+                isAdding = true;
+            }
+            OldPoint = (sender as VertexView).Location;
             StartPoint = MousePosition;
+            
+           
+
+
             //(sender as VertexView).BackColor = Color.Red;
         }
 
         private void On_MouseUp(Views sender)
         {
-            moving = null;
-           
+            if (moving != null)
+                moving = null;
+            
            // (sender as VertexView).BackColor = Color.GreenYellow;
         }
 
@@ -126,6 +142,11 @@ namespace GraphView
 
                 }
                 //canvasView1.Refresh();
+            }
+            if (isAdding)
+            {
+                Graphics g = canvasView1.CreateGraphics();
+                g.FillEllipse(new SolidBrush(Color.FromArgb(100, 0, 255, 0)), OldPoint.X + (MousePosition.X - StartPoint.X) - 20, OldPoint.Y + (MousePosition.Y - StartPoint.Y) - 20, 40, 40);
             }
             // (sender as VertexView).BackColor = Color.GreenYellow;
         }
