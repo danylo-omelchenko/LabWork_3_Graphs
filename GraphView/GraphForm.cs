@@ -11,10 +11,12 @@ using GraphImplementation;
 
 namespace GraphView
 {
+    public delegate void EventSelectedChange(VertexView v);
+  
     public partial class GraphForm : Form
     {
         Graph graph = new Graph();
-
+        public event EventSelectedChange OnSelectedChange;
         public GraphForm()
         {
             InitializeComponent();
@@ -24,13 +26,20 @@ namespace GraphView
             graph.OnVertexRemoved += On_VertexRemoved;
             graph.OnVertexAdded += On_VertexAdded;
             graph.OnChange += On_Change;
-
+            this.OnSelectedChange += GraphForm_OnSelectedChange;
             canvasView1.MouseMove += On_MouseMove;
+
+            propertyGrid1.SelectedObject = graph;
+        }
+
+        void GraphForm_OnSelectedChange(VertexView v)
+        {
+            propertyGrid2.SelectedObject = v.Vertex;
         }
 
         public void On_Change(Graph sender)
         {
-
+            propertyGrid1.Refresh();
         }
 
         public void On_VertexRemoved(Graph sender, Vertex vertex)
@@ -56,7 +65,7 @@ namespace GraphView
             Random r = new Random(DateTime.Now.Millisecond);
             VertexView v = new VertexView();
             v.Vertex = vertex;
-            v.Location = new Point(r.Next(0, canvasView1.Width), r.Next(0, canvasView1.Height));
+            v.Location = new Point(r.Next(v.Radius, canvasView1.Width - v.Radius), r.Next(v.Radius, canvasView1.Height - v.Radius));
             v.MouseDown += On_MouseDown;
             v.MouseUp += On_MouseUp;
             v.MouseLeave += On_MouseLeave;
@@ -115,6 +124,7 @@ namespace GraphView
                     v.IsSelected = false;
                 }
                 (sender as VertexView).IsSelected = true;
+                if (OnSelectedChange != null) OnSelectedChange(sender as VertexView);
                 canvasView1.BringToFront(sender);
                 moving = (VertexView)sender;
 
@@ -238,6 +248,11 @@ namespace GraphView
         private void canvasView1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void GraphForm_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

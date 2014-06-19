@@ -22,12 +22,12 @@ namespace GraphView
         public void Update(Graph sender)
         {
             label1.Text =
-                           "Is tree: \t" + g.IsTree().ToString() + "\n" +
-                            "Is connected: \t" + g.IsConnected().ToString() + "\n" +
-                            "Is Euler: \t" + g.IsEuler().ToString() + "\n" +
-                             "Is IsBigraph: \t" + g.IsBigraph().ToString() + "\n" +
-                             "Is Wood: \t" + g.IsWood().ToString() + "\n" +
-                             "Is Full: \t" + g.IsFull().ToString() + "\n";
+                           "Is tree: \t" + g.IsTree.ToString() + "\n" +
+                            "Is connected: \t" + g.IsConnected.ToString() + "\n" +
+                            "Is Euler: \t" + g.IsEuler.ToString() + "\n" +
+                             "Is IsBigraph: \t" + g.IsBigraph.ToString() + "\n" +
+                             "Is Wood: \t" + g.IsWood.ToString() + "\n" +
+                             "Is Full: \t" + g.IsFull.ToString() + "\n";
             listBox2.Items.Clear();
             foreach(Edge i in g.Edges())
             {
