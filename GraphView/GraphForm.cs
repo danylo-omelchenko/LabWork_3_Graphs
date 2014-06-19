@@ -212,7 +212,7 @@ namespace GraphView
             }
             if (isAdding)
             {
-                VertexView hitTest = canvasView1.VertexHitTest(new Point(e.X, e.Y));
+                VertexView hitTest = canvasView1.VertexHitTest(new Point(e.X, e.Y), VPreview, canvasView1.FindViewByVertex(EPreview.Edge.Vertex1));
                 if (hitTest != null)
                 {
                     VPreview.Location = hitTest.Location;
@@ -264,6 +264,8 @@ namespace GraphView
         
         private void button2_Click(object sender, EventArgs e)
         {
+            canvasView1.Views.Clear();
+
             GraphController.Open(ref graph);
         }
 
@@ -304,6 +306,11 @@ namespace GraphView
             {
                 throw new Exception("Вершина не выделена");
             }
+        }
+
+        private void propertyGrid2_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            canvasView1.Refresh();
         }
     }
 }
