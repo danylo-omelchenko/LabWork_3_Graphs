@@ -12,6 +12,18 @@ namespace GraphView
 {
     public class VertexView:Views
     {
+        public static System.Drawing.StringFormat stringFormat; 
+
+        public VertexView()
+        {
+            if (VertexView.stringFormat == null)
+            {
+                VertexView.stringFormat = new StringFormat();
+                VertexView.stringFormat.Alignment = StringAlignment.Center;
+                VertexView.stringFormat.LineAlignment = StringAlignment.Center;
+            }
+        }
+        
         public event MouseHandler MouseDown;
         public event MouseHandler MouseUp;
         public event MouseHandler MouseEnter;
@@ -79,8 +91,8 @@ namespace GraphView
                 g.FillEllipse(new SolidBrush(backColor), location.X - radius, location.Y - radius, radius * 2, radius * 2);
                 g.DrawEllipse(new Pen(borderColor, 2), location.X - radius, location.Y - radius, radius * 2, radius * 2);
             }
-         
-            TextRenderer.DrawText(g, vertex.Info, new Font("Times New Roman",10), new Rectangle(location.X - radius, location.Y - radius, radius * 2, radius * 2), Color.Black, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordEllipsis);
+            g.DrawString(vertex.Info, new Font("Calibri", 10), Brushes.Black, location.X, location.Y, VertexView.stringFormat);
+            /*TextRenderer.DrawText(g, vertex.Info, new Font("Times New Roman",10), new Rectangle(location.X - radius, location.Y - radius, radius * 2, radius * 2), Color.Black, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordEllipsis);*/
         }
 
         private Vertex vertex;
