@@ -81,7 +81,6 @@
             this.propertyGrid2.Name = "propertyGrid2";
             this.propertyGrid2.Size = new System.Drawing.Size(192, 230);
             this.propertyGrid2.TabIndex = 5;
-            this.propertyGrid2.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid2_PropertyValueChanged);
             // 
             // canvasView1
             // 
