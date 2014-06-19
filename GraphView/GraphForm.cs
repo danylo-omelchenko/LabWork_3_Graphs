@@ -144,7 +144,17 @@ namespace GraphView
                         v.IsHighLighted = false;
                     }
                     Vertex last = null;
-                    foreach(Vertex v in GraphController.FindWay(Selected.Vertex,(sender as VertexView).Vertex))
+                    List<Vertex> way = new List<Vertex>();
+                    try
+                    {
+                        way = GraphController.FindWay(Selected.Vertex, (sender as VertexView).Vertex);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    foreach(Vertex v in way)
                     {
                         canvasView1.FindViewByVertex(v).isHighLighted = true;
                         if(last!=null)
