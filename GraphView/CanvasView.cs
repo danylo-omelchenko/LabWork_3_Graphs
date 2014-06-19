@@ -104,11 +104,18 @@ namespace GraphView
 
         private void On_Mouse_Up(Object sender, MouseEventArgs e)
         {
-            foreach (VertexView v in Views.OfType<VertexView>())
-            {
-                    v.Raise_MouseUp();
-            }
+            try
+                {
+                foreach (VertexView v in Views.OfType<VertexView>())
+                {
+                        v.Raise_MouseUp();
+                }
             Refresh();
+            }catch(Exception)
+            {
+
+            }
+           
         }
 
         private void On_Mouse_Down(Object sender, MouseEventArgs e)
@@ -121,7 +128,7 @@ namespace GraphView
             Refresh();
         }
 
-        private VertexView VertexHitTest(Point point)
+        public VertexView VertexHitTest(Point point)
         {
             VertexView vv = null;
             foreach (VertexView v in Views.OfType<VertexView>())

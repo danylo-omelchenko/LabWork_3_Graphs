@@ -98,7 +98,9 @@ namespace GraphView
         }
 
         VertexView moving = null;
-        VertexView Preview = new VertexView();
+        VertexView VPreview = new VertexView();
+        VertexView Over = null;
+        EdgeView EPreview = new EdgeView();
         Point StartPoint;
         Point OldPoint;
 
@@ -119,11 +121,17 @@ namespace GraphView
             }
             else
             {
-                Preview.BackColor = Color.FromArgb(100, 0, 255, 0);
-                Preview.BorderColor = Color.FromArgb(200, 0, 255, 0);
-                Preview.Location = (sender as VertexView).Location;
-                canvasView1.Views.Add(Preview);
-                canvasView1.BringToFront(Preview);
+                VPreview.BackColor = Color.GreenYellow;// Color.FromArgb(100, 0, 255, 0);
+                VPreview.BorderColor = Color.Green;
+                VPreview.Location = (sender as VertexView).Location;
+                VPreview.Vertex = new Vertex("");
+                canvasView1.Views.Add(VPreview);
+
+                EPreview.Edge = new Edge((sender as VertexView).Vertex, VPreview.Vertex);
+                EPreview.Point1 = canvasView1.FindViewByVertex(EPreview.Edge.Vertex1).Location;
+                EPreview.Point2 = canvasView1.FindViewByVertex(EPreview.Edge.Vertex2).Location;
+                canvasView1.Views.Add(EPreview);
+                canvasView1.BringToFront(VPreview);
                 isAdding = true;
             }
             OldPoint = (sender as VertexView).Location;
@@ -135,6 +143,42 @@ namespace GraphView
             //(sender as VertexView).BackColor = Color.Red;
         }
 
+
+        private void On_MouseMove(Object sender, MouseEventArgs e)
+        {
+            if (moving != null)
+            {
+                moving.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
+                foreach (Edge ed in moving.Vertex.IncidentedEdges())
+                {
+                    if (canvasView1.FindViewByEdge(ed).Edge.Vertex1 == moving.Vertex)
+                    {
+                        canvasView1.FindViewByEdge(ed).Point1 = moving.Location;
+                    }
+                    else
+                    {
+                        canvasView1.FindViewByEdge(ed).Point2 = moving.Location;
+                    }
+
+                }
+            }
+            if (isAdding)
+            {
+                VertexView hitTest = canvasView1.VertexHitTest(new Point(e.X, e.Y));
+                if (hitTest != null)
+                {
+                    VPreview.Location = hitTest.Location;
+                    Over = hitTest;
+                }
+                else
+                {
+                    VPreview.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
+                    Over = null;
+                }
+                EPreview.Point2 = canvasView1.FindViewByVertex(EPreview.Edge.Vertex2).Location;
+            }
+        }
+
         private void On_MouseUp(Views sender)
         {
            if (moving != null)
@@ -142,37 +186,24 @@ namespace GraphView
            if(isAdding)
            {
                isAdding = false;
-           } 
+
+               if (Over != null)
+               {
+                   graph.AddEdge(Over.Vertex, EPreview.Edge.Vertex1);
+               }
+               else
+               {
+                   graph.AddVertex();
+                   (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Location = VPreview.Location;
+                   graph.AddEdge(EPreview.Edge.Vertex1, (canvasView1.Views[canvasView1.Views.Count - 1] as VertexView).Vertex);
+               }
+               canvasView1.Views.Remove(VPreview);
+               canvasView1.Views.Remove(EPreview);
+           }
+           canvasView1.Refresh();
            // (sender as VertexView).BackColor = Color.GreenYellow;
         }
-
-        private void On_MouseMove(Object sender, MouseEventArgs e)
-        {
-            if (moving != null)
-            {
-                moving.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
-                foreach(Edge ed in moving.Vertex.IncidentedEdges())
-                {
-                   if (canvasView1.FindViewByEdge(ed).Edge.Vertex1 == moving.Vertex)
-                   {
-                       canvasView1.FindViewByEdge(ed).Point1 =  moving.Location;
-                   }
-                   else
-                   {
-                       canvasView1.FindViewByEdge(ed).Point2 = moving.Location;
-                   }
-
-                }
-                //canvasView1.Refresh();
-            }
-            if (isAdding)
-            {
-                //Graphics g = canvasView1.CreateGraphics();
-                Preview.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
-            }
-            // (sender as VertexView).BackColor = Color.GreenYellow;
-        }
-
+        
         private void On_MouseEnter(Views sender)
         {
            (sender as VertexView).BackColor = Color.Yellow;

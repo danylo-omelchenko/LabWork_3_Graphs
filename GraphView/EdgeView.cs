@@ -34,7 +34,7 @@ namespace GraphView
             set { width = value; }
         }
 
-        private Color color = Color.GreenYellow;
+        private Color color = Color.Green;
         public Color Color
         {
             get { return color; }
