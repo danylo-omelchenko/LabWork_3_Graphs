@@ -113,24 +113,33 @@ namespace GraphView
             if (moving != null)
             {
                 moving.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
+                foreach(Edge ed in moving.Vertex.IncidentedEdges())
+                {
+                   if (canvasView1.FindViewByEdge(ed).Edge.Vertex1 == moving.Vertex)
+                   {
+                       canvasView1.FindViewByEdge(ed).Point1 =  moving.Location;
+                   }
+                   else
+                   {
+                       canvasView1.FindViewByEdge(ed).Point2 = moving.Location;
+                   }
+
+                }
                 //canvasView1.Refresh();
             }
             // (sender as VertexView).BackColor = Color.GreenYellow;
         }
 
-
-
         private void On_MouseEnter(Views sender)
         {
-           // (sender as VertexView).BackColor = Color.Pink;
+           (sender as VertexView).BackColor = Color.Yellow;
         }
 
         private void On_MouseLeave(Views sender)
         {
-           // (sender as VertexView).BackColor = Color.GreenYellow;
+           (sender as VertexView).BackColor = Color.GreenYellow;
         }
         
-
         private void button2_Click(object sender, EventArgs e)
         {
             GraphController.Open(ref graph);

@@ -40,6 +40,14 @@ namespace GraphImplementation
                 yield return ver;
             }
         }
+
+        public IEnumerable<Edge> IncidentedEdges()
+        {
+            foreach (Vertex ver in this.Vertexes)
+            {
+                yield return new Edge(ver,this);
+            }
+        }
         
     }
 }
