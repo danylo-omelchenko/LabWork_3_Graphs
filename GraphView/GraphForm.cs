@@ -84,6 +84,7 @@ namespace GraphView
         }
 
         VertexView moving = null;
+        VertexView Preview = new VertexView();
         Point StartPoint;
         Point OldPoint;
 
@@ -104,7 +105,11 @@ namespace GraphView
             }
             else
             {
-               
+                Preview.BackColor = Color.FromArgb(100, 0, 255, 0);
+                Preview.BorderColor = Color.FromArgb(200, 0, 255, 0);
+                Preview.Location = (sender as VertexView).Location;
+                canvasView1.Views.Add(Preview);
+                canvasView1.BringToFront(Preview);
                 isAdding = true;
             }
             OldPoint = (sender as VertexView).Location;
@@ -118,9 +123,12 @@ namespace GraphView
 
         private void On_MouseUp(Views sender)
         {
-            if (moving != null)
-                moving = null;
-            
+           if (moving != null)
+               moving = null;
+           if(isAdding)
+           {
+               isAdding = false;
+           } 
            // (sender as VertexView).BackColor = Color.GreenYellow;
         }
 
@@ -145,8 +153,8 @@ namespace GraphView
             }
             if (isAdding)
             {
-                Graphics g = canvasView1.CreateGraphics();
-                g.FillEllipse(new SolidBrush(Color.FromArgb(100, 0, 255, 0)), OldPoint.X + (MousePosition.X - StartPoint.X) - 20, OldPoint.Y + (MousePosition.Y - StartPoint.Y) - 20, 40, 40);
+                //Graphics g = canvasView1.CreateGraphics();
+                Preview.Location = new Point(OldPoint.X + (MousePosition.X - StartPoint.X), OldPoint.Y + (MousePosition.Y - StartPoint.Y));
             }
             // (sender as VertexView).BackColor = Color.GreenYellow;
         }
