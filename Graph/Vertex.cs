@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.ComponentModel;
 namespace GraphImplementation
 {
     public class Vertex
@@ -14,23 +14,40 @@ namespace GraphImplementation
         }
         public Vertex(String Info)
         {
-            this.Info = Info;
+            this.info = Info;
         }
         public List<Vertex> Vertexes = new List<Vertex>();
-        public String Info;
+        private String info;
 
-        //incident
-        //isIsolated
-        //degree
+        /// <summary>
+        /// Показывает информацию, которую хранит узел графа
+        /// </summary>
+        [Description("Информация, которую хранит узел графа")]
+        public String Info
+        {
+            get { return info; }
+            set { info = value; }
+        }
 
+
+        /// <summary>
+        /// Показывает степень узла графа
+        /// </summary>
+        [Description("Показывает степень узла графа, то есть количество смежных вершин")]
         public Int32 Degree
         {
             get { return Vertexes.Count; }
         }
-
-        public Boolean IsIsolated()
+        /// <summary>
+        /// Показывает изолирован ли узел графа
+        /// </summary>
+        [Description("Показывает изолирован ли узел графа")]
+        public Boolean IsIsolated
         {
-            return Vertexes.Count == 0;
+            get
+            {
+                return Vertexes.Count == 0;
+            }
         }
 
         public IEnumerable<Vertex> Incidented()

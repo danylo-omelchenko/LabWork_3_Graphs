@@ -31,6 +31,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
             this.canvasView1 = new GraphView.CanvasView();
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).BeginInit();
             this.SuspendLayout();
@@ -65,11 +67,25 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Location = new System.Drawing.Point(729, 12);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(192, 294);
+            this.propertyGrid1.TabIndex = 4;
+            // 
+            // propertyGrid2
+            // 
+            this.propertyGrid2.Location = new System.Drawing.Point(729, 312);
+            this.propertyGrid2.Name = "propertyGrid2";
+            this.propertyGrid2.Size = new System.Drawing.Size(192, 230);
+            this.propertyGrid2.TabIndex = 5;
+            // 
             // canvasView1
             // 
             this.canvasView1.Location = new System.Drawing.Point(130, 12);
             this.canvasView1.Name = "canvasView1";
-            this.canvasView1.Size = new System.Drawing.Size(602, 520);
+            this.canvasView1.Size = new System.Drawing.Size(593, 530);
             this.canvasView1.TabIndex = 0;
             this.canvasView1.TabStop = false;
             this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
@@ -78,13 +94,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 554);
+            this.ClientSize = new System.Drawing.Size(933, 554);
+            this.Controls.Add(this.propertyGrid2);
+            this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.canvasView1);
             this.Name = "GraphForm";
             this.Text = "GraphForm";
+            this.Load += new System.EventHandler(this.GraphForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -96,5 +115,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.PropertyGrid propertyGrid2;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.ComponentModel;
 namespace GraphImplementation
 {
     public class Graph
@@ -291,119 +291,159 @@ namespace GraphImplementation
         /// Пустота графа
         /// </summary>
         /// <returns>Возвращает истину, если граф пуст</returns>
-        public Boolean IsEmpty()
+        [Description("Показывает является ли граф пустым")]
+        public Boolean IsEmpty
         {
-            return Vertexes.Count == 0;
+            get { return Vertexes.Count == 0; }
         }
         /// <summary>
         /// Полнота графа
         /// </summary>
         /// <returns>Возвращает истину, если граф полный</returns>
-        public Boolean IsFull()
+        [Description("Показывает является ли граф полным")]
+        public Boolean IsFull
         {
-            int[,] matrix = this.GetMatrix();
-            int n = matrix.GetLength(0);
-            bool flag=true;
-            for(int i=0;i<n;i++)
-            {
-                for (int j = 0; j < n; j++)
+            get 
+            { 
+                int[,] matrix = this.GetMatrix();
+                int n = matrix.GetLength(0);
+                bool flag=true;
+                for(int i=0;i<n;i++)
                 {
-                    if(i!=j && matrix[i,j]==0)
+                    for (int j = 0; j < n; j++)
                     {
-                        flag = false;
-                        break;
+                        if(i!=j && matrix[i,j]==0)
+                        {
+                            flag = false;
+                            break;
+                        }
                     }
                 }
+                return flag;
             }
-            return flag;
         }
         /// <summary>
         /// Проверка на древестность
         /// </summary>
         /// <returns>Возвращает истину, если граф дерево.</returns>
-        public Boolean IsTree()
+        [Description("Показывает является ли граф деревом")]
+        public Boolean IsTree
         {
-            if (this.IsConnected())
+            get
             {
-                int[,] matrix = this.GetMatrix();
-                int n=matrix.GetLength(0);
-                bool[] flag= new bool[n];
-                for (int j = 0; j < n; j++)
-                    flag[j] = true;
-                int i = 0;
-                int count = 0;
-                while(i<n)
+                if (this.IsConnected)
                 {
-                    count = 0;
-                    for(int j=0;j<n;j++)
+                    int[,] matrix = this.GetMatrix();
+                    int n = matrix.GetLength(0);
+                    bool[] flag = new bool[n];
+                    for (int j = 0; j < n; j++)
+                        flag[j] = true;
+                    int i = 0;
+                    int count = 0;
+                    while (i < n)
                     {
-                        if (matrix[i, j] == 1 && flag[i] && flag[j])
+                        count = 0;
+                        for (int j = 0; j < n; j++)
                         {
-                            count++;
+                            if (matrix[i, j] == 1 && flag[i] && flag[j])
+                            {
+                                count++;
+                            }
                         }
+                        if (count == 1)
+                        {
+                            flag[i] = false;
+                            i = 0;
+                        }
+                        i++;
                     }
-                    if (count == 1)
+                    count = 0;
+                    for (int j = 0; j < n; j++)
                     {
-                        flag[i] = false;
-                        i = 0;
+                        if (flag[j]) count++;
                     }
-                    i++;
+                    return (count == 1);
                 }
-                count = 0;
-                for (int j = 0; j < n;j++ )
+                else
                 {
-                    if (flag[j]) count++;
+                    return false;
                 }
-                return (count==1);
-            }
-            else
-            {
-                return false;
             }
         }
         /// <summary>
         /// Проверяет граф на связность
         /// </summary>
         /// <returns>Возвращает истину, если граф связанный.</returns>
-        public Boolean IsConnected()
+        [Description("Показывает является ли граф связанным")]
+        public Boolean IsConnected
         {
-            int[,] matrix = this.GetMatrix();
-            bool flag = true;
-            bool inColumn;
-            int n=matrix.GetLength(0);
-            if (n == 1) return true;
-            for (int i=0;i<n;i++)
+            get
             {
-                inColumn = false;
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                int[,] matrix = this.GetMatrix();
+                bool flag = true;
+                bool inColumn;
+                int n = matrix.GetLength(0);
+                if (n == 1) return true;
+                for (int i = 0; i < n; i++)
                 {
-                    if (matrix[i, j] != 0)
+                    inColumn = false;
+                    for (int j = 0; j < matrix.GetLength(1); j++)
                     {
-                        inColumn = true;
+                        if (matrix[i, j] != 0)
+                        {
+                            inColumn = true;
+                            break;
+                        }
+                    }
+                    if (!inColumn)
+                    {
+                        flag = false;
                         break;
                     }
                 }
-                if (!inColumn)
-                {
-                    flag = false;
-                    break;
-                }
+
+                return flag;
             }
-            
-            return flag;
         }
         /// <summary>
         /// Проверка на содержание Эйлерового цикла
         /// </summary>
         /// <returns>Возвращает истину, если граф содержит Эйлеров цикл.</returns>
-        public Boolean IsEuler()
+        [Description("Показывает является ли граф Эйлеровым")]
+        public Boolean IsEuler
         {
-            bool flag=true;
-            if (IsConnected())
+            get
             {
-                foreach(Vertex i in Simple())
+                bool flag = true;
+                if (IsConnected)
                 {
-                    if(i.Degree % 2 !=0)
+                    foreach (Vertex i in Simple())
+                    {
+                        if (i.Degree % 2 != 0)
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    return flag;
+                }
+                else
+                    return false;
+            }
+        }
+        /// <summary>
+        /// Проверка на лес
+        /// </summary>
+        /// <returns>Возвращает является ли граф лесом</returns>
+        [Description("Показывает является ли граф лесом")]
+        public Boolean IsWood
+        {
+            get
+            {
+                bool flag = true;
+                foreach (Graph g in GetComponents())
+                {
+                    if (!g.IsTree)
                     {
                         flag = false;
                         break;
@@ -411,54 +451,39 @@ namespace GraphImplementation
                 }
                 return flag;
             }
-            else
-                return false;
-        }
-        /// <summary>
-        /// Проверка на лес
-        /// </summary>
-        /// <returns>Возвращает является ли граф лесом</returns>
-        public Boolean IsWood()
-        {
-            bool flag=true;
-            foreach(Graph g in GetComponents())
-            {
-                if (!g.IsTree())
-                {
-                    flag = false;
-                    break;
-                }
-            }
-            return flag;
         }
         /// <summary>
         /// Проверка на двудольность
         /// </summary>
         /// <returns>Возвращает является ли граф двудольным</returns>
-        public Boolean IsBigraph()
+        [Description("Показывает является ли граф двудольным")]
+        public Boolean IsBigraph
         {
-            bool flag = true;
-            Dictionary<Vertex, int> Mark = new Dictionary<Vertex, int>();
-            foreach (Vertex v in BFS())
+            get
             {
-                if (!Mark.ContainsKey(v))
+                bool flag = true;
+                Dictionary<Vertex, int> Mark = new Dictionary<Vertex, int>();
+                foreach (Vertex v in BFS())
                 {
-                    Mark.Add(v, 1);
-                }
-                foreach (Vertex i in v.Vertexes)
-                {
-                    if(!Mark.ContainsKey(i))
+                    if (!Mark.ContainsKey(v))
                     {
-                        Mark.Add(i, -Mark[v]);
+                        Mark.Add(v, 1);
                     }
-                    else
+                    foreach (Vertex i in v.Vertexes)
                     {
-                        if (Mark[i] != -Mark[v])
-                        flag = false;
+                        if (!Mark.ContainsKey(i))
+                        {
+                            Mark.Add(i, -Mark[v]);
+                        }
+                        else
+                        {
+                            if (Mark[i] != -Mark[v])
+                                flag = false;
+                        }
                     }
                 }
+                return flag;
             }
-            return flag;
         }
         /// <summary>
         /// Разбиение на комоненты связности

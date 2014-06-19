@@ -39,8 +39,14 @@ namespace GraphView
             }
         }
 
+        public Boolean isHighLighted = false;
+        private Boolean IsHighLighted
+        {
+            get { return isHighLighted; }
+            set { isHighLighted = value; }
+        }
         public Boolean IsSelected = false;
-
+        
         public void Raise_MouseUp()
         {
             if (MouseUp != null && isDown)
@@ -91,6 +97,10 @@ namespace GraphView
                 g.FillEllipse(new SolidBrush(backColor), location.X - radius, location.Y - radius, radius * 2, radius * 2);
                 g.DrawEllipse(new Pen(borderColor, 2), location.X - radius, location.Y - radius, radius * 2, radius * 2);
             }
+            if (IsHighLighted)
+            {
+                g.DrawEllipse(new Pen(highLightColor, 4), location.X - radius, location.Y - radius, radius * 2, radius * 2);
+            }
             g.DrawString(vertex.Info, new Font("Calibri", 10), Brushes.Black, location.X, location.Y, VertexView.stringFormat);
             /*TextRenderer.DrawText(g, vertex.Info, new Font("Times New Roman",10), new Rectangle(location.X - radius, location.Y - radius, radius * 2, radius * 2), Color.Black, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordEllipsis);*/
         }
@@ -136,6 +146,11 @@ namespace GraphView
             get { return borderColor; }
             set { borderColor = value; }
         }
-
+        private Color highLightColor = Color.Red;
+        public Color HighLightColor
+        {
+            get { return highLightColor; }
+            set { highLightColor = value; }
+        }
     }
 }
