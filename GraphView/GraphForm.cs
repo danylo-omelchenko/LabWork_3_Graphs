@@ -17,6 +17,8 @@ namespace GraphView
     {
         Graph graph = new Graph();
         public event EventSelectedChange OnSelectedChange;
+        VertexView Selected = null;
+        bool isFindWay = false;
         public GraphForm()
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace GraphView
 
         void GraphForm_OnSelectedChange(VertexView v)
         {
+            Selected = v;
             propertyGrid2.SelectedObject = v.Vertex;
         }
 
@@ -119,15 +122,40 @@ namespace GraphView
             
             if(MouseButtons == MouseButtons.Left)
             {
-                foreach (VertexView v in canvasView1.Views.OfType < VertexView>())
+                if (!isFindWay)
                 {
-                    v.IsSelected = false;
+                    foreach (VertexView v in canvasView1.Views.OfType<VertexView>())
+                    {
+                        v.IsSelected = false;
+                    }
+                    (sender as VertexView).IsSelected = true;
+                    if (OnSelectedChange != null) OnSelectedChange(sender as VertexView);
+                    canvasView1.BringToFront(sender);
+                    moving = (VertexView)sender;
                 }
-                (sender as VertexView).IsSelected = true;
-                if (OnSelectedChange != null) OnSelectedChange(sender as VertexView);
-                canvasView1.BringToFront(sender);
-                moving = (VertexView)sender;
-
+                else
+                {
+                    foreach (VertexView v in canvasView1.Views.OfType<VertexView>())
+                    {
+                        v.isHighLighted = false;
+                    }
+                    foreach (EdgeView v in canvasView1.Views.OfType<EdgeView>())
+                    {
+                        v.IsHighLighted = false;
+                    }
+                    Vertex last = null;
+                    foreach(Vertex v in GraphController.FindWay(Selected.Vertex,(sender as VertexView).Vertex))
+                    {
+                        canvasView1.FindViewByVertex(v).isHighLighted = true;
+                        if(last!=null)
+                        {
+                            canvasView1.FindViewByEdge(new Edge(last, v)).IsHighLighted = true;
+                        }
+                        last = v;
+                    }
+                    isFindWay = false;
+                    button4.Enabled = true ;
+                }
             }
             else
             {
@@ -253,6 +281,19 @@ namespace GraphView
         private void GraphForm_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(Selected!=null)
+            {
+                isFindWay = true;
+                button4.Enabled = false;
+            }
+            else
+            {
+                throw new Exception("Вершина не выделена");
+            }
         }
     }
 }

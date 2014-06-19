@@ -34,6 +34,7 @@
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
             this.canvasView1 = new GraphView.CanvasView();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.canvasView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,11 +91,22 @@
             this.canvasView1.TabStop = false;
             this.canvasView1.Click += new System.EventHandler(this.canvasView1_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(12, 160);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(112, 23);
+            this.button4.TabIndex = 6;
+            this.button4.Text = "FindWay";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // GraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 554);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.propertyGrid2);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.button3);
@@ -117,5 +129,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.PropertyGrid propertyGrid2;
+        private System.Windows.Forms.Button button4;
     }
 }

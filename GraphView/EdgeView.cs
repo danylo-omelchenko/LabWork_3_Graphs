@@ -13,6 +13,25 @@ namespace GraphView
         {
             g.DrawLine(new Pen(color, width), point1, point2);
         }
+        private bool isHighLighted;
+        public bool IsHighLighted
+        {
+            get { return isHighLighted; }
+            set 
+            { 
+                isHighLighted = value;
+                if(isHighLighted)
+                {
+                    color = Color.Red;
+                   
+                }
+                else
+                {
+                    color = Color.Green;
+                }
+            
+            }
+        }
 
         private Point point1 = new Point(0, 0),point2 = new Point(0, 0);
         public Point Point1
