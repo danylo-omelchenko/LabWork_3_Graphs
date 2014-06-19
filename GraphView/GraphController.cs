@@ -47,24 +47,26 @@ namespace GraphView
         /// <param name="FileName">Путь к файлу</param>
         public static void SaveToFile(Graph graph, String FileName)
         {
-            String File = "";
-
+            
+            StreamWriter sw = new StreamWriter(FileName);
             Int32[,] Matr = graph.GetMatrix();
-            File += Matr.GetLength(0).ToString() + (char)13;
-
+            sw.WriteLine(Matr.GetLength(0).ToString() );
+   
 
             foreach (Vertex ver in graph.Simple())
             {
-                File += ver.Info + (char)13;
+                sw.WriteLine(ver.Info);
             }
 
             for(int i = 0; i < Matr.GetLength(0);i++)
             {
                 for (int j = 0; j < Matr.GetLength(1); j++)
                 {
-                    File += Matr[i,j].ToString() + (char)13;
+                    sw.WriteLine(Matr[i,j].ToString() );
                 }
             }
+           
+            sw.Close();
         }
 
         public static void Save(ref Graph g)
