@@ -196,7 +196,7 @@ namespace GraphImplementation
         #region "operation with edges"
 
             /// <summary>
-            /// Добавляет ребро в граф.
+            /// Добавляет ребро в граф. Если связь уже есть, то удаляет её.
             /// </summary>
             /// <param name="Vertex1">Первая вершина, которая входит в добавляемое ребро.</param>
             /// <param name="Vertex2">Вторая вершина, которая входит в добавляемое ребро.</param>
@@ -206,10 +206,17 @@ namespace GraphImplementation
                 {
                     if (Vertex1 != Vertex2)
                     {
-                        if (!Vertex1.Vertexes.Contains(Vertex2)) Vertex1.Vertexes.Add(Vertex2);
-                        if (!Vertex2.Vertexes.Contains(Vertex1)) Vertex2.Vertexes.Add(Vertex1);
-                        if (OnEdgeAdded != null) OnEdgeAdded(this, new Edge(Vertex1, Vertex2));
-                        if (OnChange != null) OnChange(this); 
+                        if (!Vertex1.Vertexes.Contains(Vertex2) && !Vertex2.Vertexes.Contains(Vertex1))
+                        {
+                            Vertex1.Vertexes.Add(Vertex2);
+                            Vertex2.Vertexes.Add(Vertex1);
+                            if (OnEdgeAdded != null) OnEdgeAdded(this, new Edge(Vertex1, Vertex2));
+                            if (OnChange != null) OnChange(this);
+                        }
+                        else
+                        {
+                            RemoveEdge(Vertex1, Vertex2);
+                        }
                     }
                 }
                 catch (Exception e)
@@ -218,7 +225,7 @@ namespace GraphImplementation
                 }
             }
             /// <summary>
-            /// Добавляет ребро в граф, на основе индексов вершин.
+            /// Добавляет ребро в граф, на основе индексов вершин. Если связь уже есть, то удаляет её.
             /// </summary>
             /// <param name="Index1">Индекс первой вершины, которая входит в добавляемое ребро.</param>
             /// <param name="Index2">Индекс второй вершины, которая входит в добавляемое ребро</param>
@@ -236,10 +243,17 @@ namespace GraphImplementation
                     {
                         throw new Exception("Индекс кривой!");
                     }
-                    if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2])) Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
-                    if (!Vertexes[Index2].Vertexes.Contains(Vertexes[Index1])) Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
-                    if (OnEdgeAdded != null) OnEdgeAdded(this, new Edge(Vertexes[Index1], Vertexes[Index2]));
-                    if (OnChange != null) OnChange(this);
+                    if (!Vertexes[Index1].Vertexes.Contains(Vertexes[Index2]) && !Vertexes[Index2].Vertexes.Contains(Vertexes[Index1]))
+                    {
+                        Vertexes[Index1].Vertexes.Add(Vertexes[Index2]);
+                        Vertexes[Index2].Vertexes.Add(Vertexes[Index1]);
+                        if (OnEdgeAdded != null) OnEdgeAdded(this, new Edge(Vertexes[Index1], Vertexes[Index2]));
+                        if (OnChange != null) OnChange(this);
+                    }
+                    else
+                    {
+                        RemoveEdge(Vertexes[Index1], Vertexes[Index2]);
+                    }
                 }
             }
             /// <summary>

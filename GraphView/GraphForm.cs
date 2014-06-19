@@ -321,7 +321,7 @@ namespace GraphView
             {
                 canvasView1.FindViewByVertex(v).isHighLighted = true;
                 canvasView1.Refresh();
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(350);
             }
             
         }
@@ -350,7 +350,7 @@ namespace GraphView
             {
                 canvasView1.FindViewByVertex(v).isHighLighted = true;
                 canvasView1.Refresh();
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(350);
             }
 
         }
