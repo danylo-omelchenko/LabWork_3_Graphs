@@ -128,15 +128,25 @@ namespace GraphView
             Refresh();
         }
 
-        public VertexView VertexHitTest(Point point)
+        public VertexView VertexHitTest(Point point,params VertexView[] ignore)
         {
             VertexView vv = null;
             foreach (VertexView v in Views.OfType<VertexView>())
             {
-                if (Math.Sqrt((point.X - v.Location.X) * (point.X - v.Location.X) + (point.Y - v.Location.Y) * (point.Y - v.Location.Y)) <= v.Radius)
+                bool flag = true;
+                foreach (VertexView iv in ignore)
+                {
+                    if (iv == v)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag & Math.Sqrt((point.X - v.Location.X) * (point.X - v.Location.X) + (point.Y - v.Location.Y) * (point.Y - v.Location.Y)) <= v.Radius)
                 {
                     vv = v; break;
                 }
+
             }
             return vv;
         }
